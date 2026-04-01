@@ -1,0 +1,52 @@
+--- c:\Users\EMMANUEL\OneDrive\Desktop\website\assets\mock code\decision-brain-mockup.html ---
+<img
+                  src="BASE64"
+                  style="width:18px;height:18px;object-fit:contain;display:block;border-radius:4px;" alt="mx" />
+<img
+                  src="BASE64"
+                  style="width:18px;height:18px;object-fit:contain;display:block;border-radius:4px;" alt="in" />
+<img
+                  src="BASE64"
+                  style="width:18px;height:18px;object-fit:contain;display:block;border-radius:4px;" alt="ji" />
+<img
+                  src="BASE64"
+                  style="width:18px;height:18px;object-fit:contain;display:block;border-radius:4px;" alt="sf" />
+<img
+                  src="BASE64"
+                  style="width:18px;height:18px;object-fit:contain;display:block;border-radius:4px;" alt="zd" />
+<img
+                  src="BASE64"
+                  style="width:18px;height:18px;object-fit:contain;display:block;border-radius:4px;" alt="mx" />
+<img
+                  src="BASE64"
+                  style="width:18px;height:18px;object-fit:contain;display:block;border-radius:4px;" alt="am" />
+<img
+                  src="BASE64"
+                  style="width:18px;height:18px;object-fit:contain;display:block;border-radius:4px;" alt="in" />
+<img
+                  src="BASE64"
+                  style="width:18px;height:18px;object-fit:contain;display:block;border-radius:4px;" alt="zd" />
+<img
+                  src="BASE64"
+                  style="width:18px;height:18px;object-fit:contain;display:block;border-radius:4px;" alt="sf" />
+<img
+                  src="BASE64"
+                  style="width:18px;height:18px;object-fit:contain;display:block;border-radius:4px;" alt="zd" />
+<img
+                  src="BASE64"
+                  style="width:18px;height:18px;object-fit:contain;display:block;border-radius:4px;" alt="ji" />
+--- c:\Users\EMMANUEL\OneDrive\Desktop\website\assets\videos\v1_clean.html ---
+<img src="BASE64" style="width:18px;height:18px;object-fit:contain;mix-blend-mode:multiply;display:block;"/>
+<img src="BASE64" style="width:18px;height:18px;object-fit:contain;mix-blend-mode:multiply;display:block;"/>
+<img src="BASE64" style="width:18px;height:18px;object-fit:contain;mix-blend-mode:multiply;display:block;"/>
+<img src="BASE64" style="width:18px;height:18px;object-fit:contain;mix-blend-mode:multiply;display:block;"/>
+--- c:\Users\EMMANUEL\OneDrive\Desktop\website\assets\videos\v2_clean.html ---
+<img src="BASE64" style="width:22px;height:22px;object-fit:contain;mix-blend-mode:multiply;display:block;"/>
+<img src="BASE64" style="width:22px;height:22px;object-fit:contain;mix-blend-mode:multiply;display:block;"/>
+<img src="BASE64" style="width:22px;height:22px;object-fit:contain;mix-blend-mode:multiply;display:block;"/>
+<img src="BASE64" style="width:22px;height:22px;object-fit:contain;mix-blend-mode:multiply;display:block;"/>
+<img src="BASE64" style="width:22px;height:22px;object-fit:contain;mix-blend-mode:multiply;display:block;"/>
+--- c:\Users\EMMANUEL\OneDrive\Desktop\website\assets\videos\v3_clean.html ---
+<img src="BASE64" style="width:16px;height:16px;object-fit:contain;mix-blend-mode:multiply;display:block;"/>
+<img src="BASE64" style="width:16px;height:16px;object-fit:contain;mix-blend-mode:multiply;display:block;"/>
+<img src="BASE64" style="width:16px;height:16px;object-fit:contain;mix-blend-mode:multiply;display:block;"/>

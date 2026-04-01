@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Decision Brain — Mockup</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: #e8eaed;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      font-family: 'Inter', sans-serif;
+    }
+
+    /* ── BROWSER SHELL ── */
+    .browser {
+      width: 670px;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow:
+        0 24px 60px rgba(0, 0, 0, 0.22),
+        0 6px 16px rgba(0, 0, 0, 0.1),
+        0 0 0 0.5px rgba(0, 0, 0, 0.12);
+      background: #fff;
+    }
+
+    /* browser top bar */
+    .bar {
+      background: #f3f3f3;
+      border-bottom: 1px solid #e0e0e0;
+      padding: 9px 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      height: 36px;
+    }
+
+    .dots {
+      display: flex;
+      gap: 5px;
+    }
+
+    .dot {
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+    }
+
+    .dr {
+      background: #ff5f57;
+    }
+
+    .dy {
+      background: #febc2e;
+    }
+
+    .dg {
+      background: #28c840;
+    }
+
+    .urlbar {
+      flex: 1;
+      max-width: 280px;
+      margin: 0 auto;
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      padding: 3px 10px;
+      font-size: 11px;
+      color: #777;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .lock {
+      color: #4caf50;
+      font-size: 10px;
+    }
+
+    /* ── APP SHELL — 670 × 439px (670 - 36 bar = 439 content) ── */
+    /* Total = 670×475. Bar=36. App=439. Inner margin 25px each side. */
+    .app {
+      display: flex;
+      height: 439px;
+      background: #fff;
+    }
+
+    /* ── ICON SIDEBAR — thin, like Kinso ── */
+    .sidebar {
+      width: 48px;
+      background: #fafafa;
+      border-right: 1px solid #eeeeee;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 16px 0 12px;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+
+    .s-logo {
+      width: 28px;
+      height: 28px;
+      background: #111;
+      border-radius: 7px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 14px;
+      flex-shrink: 0;
+    }
+
+    .s-logo svg {
+      width: 14px;
+      height: 14px;
+    }
+
+    .s-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #bbb;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .s-icon.active {
+      background: #f0f0f0;
+      color: #111;
+    }
+
+    .s-icon svg {
+      width: 16px;
+      height: 16px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.7;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .s-spacer {
+      flex: 1;
+    }
+
+    .s-avatar {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    /* ── MAIN AREA ── */
+    .main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      /* 25px margin inside the main content */
+      padding: 0;
+    }
+
+    /* top search row */
+    .topbar {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 25px 13px;
+      border-bottom: 1px solid #f0f0f0;
+      flex-shrink: 0;
+    }
+
+    .search {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #f7f7f7;
+      border: 1px solid #ebebeb;
+      border-radius: 8px;
+      padding: 7px 12px;
+      font-size: 12px;
+      color: #aaa;
+    }
+
+    .search svg {
+      width: 13px;
+      height: 13px;
+      stroke: #bbb;
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      flex-shrink: 0;
+    }
+
+    .filter-btn {
+      padding: 6px 12px;
+      border-radius: 7px;
+      border: 1px solid #e8e8e8;
+      background: #fff;
+      font-size: 11.5px;
+      font-weight: 500;
+      color: #666;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .filter-btn svg {
+      width: 12px;
+      height: 12px;
+      stroke: #999;
+      fill: none;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+    }
+
+    /* heading row */
+    .heading-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 25px 10px;
+      flex-shrink: 0;
+    }
+
+    .heading-left {}
+
+    .heading-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: #111;
+      letter-spacing: -0.02em;
+    }
+
+    .heading-sub {
+      font-size: 11px;
+      color: #aaa;
+      margin-top: 1px;
+    }
+
+    .heading-right {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .badge-live {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 10.5px;
+      font-weight: 600;
+      color: #16a34a;
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: 99px;
+      padding: 3px 9px;
+    }
+
+    .live-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: #16a34a;
+    }
+
+    /* ── OPPORTUNITY LIST ── */
+    .list {
+      flex: 1;
+      overflow: hidden;
+      padding: 0 25px;
+    }
+
+    /* column header */
+    .col-head {
+      display: grid;
+      grid-template-columns: 22px 1fr 70px 56px 52px;
+      gap: 0 12px;
+      padding: 0 0 6px;
+      border-bottom: 1px solid #f2f2f2;
+      margin-bottom: 2px;
+    }
+
+    .ch {
+      font-size: 10px;
+      font-weight: 600;
+      color: #ccc;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .ch.r {
+      text-align: right;
+    }
+
+    /* each opportunity row */
+    .opp {
+      display: grid;
+      grid-template-columns: 22px 1fr 70px 56px 52px;
+      gap: 0 12px;
+      align-items: center;
+      padding: 9px 0;
+      border-bottom: 1px solid #f7f7f7;
+      transition: background 0.1s;
+    }
+
+    .opp:last-child {
+      border-bottom: none;
+    }
+
+    .opp.active {
+      background: #fafbff;
+      margin: 0 -25px;
+      padding: 9px 25px;
+      border-bottom: 1px solid #eef0f8;
+      border-top: 1px solid #eef0f8;
+    }
+
+    .rank {
+      font-size: 11px;
+      font-weight: 700;
+      color: #ccc;
+    }
+
+    .opp.active .rank {
+      color: #3b82f6;
+    }
+
+    /* title + tag in one cell */
+    .opp-center {
+      min-width: 0;
+    }
+
+    .opp-name {
+      font-size: 12.5px;
+      font-weight: 500;
+      color: #1a1a1a;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-bottom: 3px;
+    }
+
+    .opp.dimmed .opp-name {
+      color: #aaa;
+    }
+
+    .opp-tags {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .tag {
+      font-size: 9.5px;
+      font-weight: 600;
+      padding: 1.5px 7px;
+      border-radius: 4px;
+      letter-spacing: 0.02em;
+    }
+
+    .t-churn {
+      background: #fef2f2;
+      color: #dc2626;
+    }
+
+    .t-revenue {
+      background: #fffbeb;
+      color: #b45309;
+    }
+
+    .t-ux {
+      background: #eff6ff;
+      color: #2563eb;
+    }
+
+    .t-nps {
+      background: #f5f3ff;
+      color: #7c3aed;
+    }
+
+    .t-growth {
+      background: #f0fdf4;
+      color: #16a34a;
+    }
+
+    /* source logos */
+    .sources {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .sd {
+      width: 20px;
+      height: 20px;
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      background: #ffffff !important;
+      border: 0.75px solid rgba(0, 0, 0, 0.12);
+      padding: 2px;
+      box-sizing: border-box;
+      isolation: isolate;
+    }
+
+    .sd img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+      mix-blend-mode: multiply;
+    }
+
+    /* score */
+    .score-cell {
+      text-align: right;
+    }
+
+    .score-num {
+      font-size: 14px;
+      font-weight: 700;
+      color: #111;
+      letter-spacing: -0.02em;
+    }
+
+    .opp.dimmed .score-num {
+      color: #ccc;
+    }
+
+    /* trend */
+    .trend {
+      font-size: 10.5px;
+      font-weight: 600;
+      text-align: right;
+    }
+
+    .up {
+      color: #16a34a;
+    }
+
+    .down {
+      color: #dc2626;
+    }
+
+    .flat {
+      color: #aaa;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="browser">
+
+    <!-- Browser bar -->
+    <div class="bar">
+      <div class="dots">
+        <div class="dot dr"></div>
+        <div class="dot dy"></div>
+        <div class="dot dg"></div>
+      </div>
+      <div class="urlbar">
+        <span class="lock">🔒</span>
+        app.Reliabs.ai
+      </div>
+    </div>
+
+    <!-- App -->
+    <div class="app">
+
+      <!-- Icon sidebar -->
+      <div class="sidebar">
+        <!-- logo -->
+        <div class="s-logo">
+          <svg viewBox="0 0 14 14" fill="none">
+            <circle cx="7" cy="7" r="5" stroke="#fff" stroke-width="1.6" />
+            <path d="M5 7h4M7 5v4" stroke="#fff" stroke-width="1.6" stroke-linecap="round" />
+          </svg>
+        </div>
+
+        <!-- Opportunities — signal pulse -->
+        <div class="s-icon active" title="Opportunities">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"
+            stroke-linejoin="round">
+            <path d="M2 12h2.5l2.5-7 4 14 3-10 2 3H22" />
+          </svg>
+        </div>
+
+        <!-- Roadmap — kanban columns -->
+        <div class="s-icon" title="Roadmap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"
+            stroke-linejoin="round">
+            <rect x="3" y="3" width="7" height="7" rx="1.5" />
+            <rect x="14" y="3" width="7" height="7" rx="1.5" />
+            <rect x="3" y="14" width="7" height="7" rx="1.5" />
+            <rect x="14" y="14" width="7" height="7" rx="1.5" />
+          </svg>
+        </div>
+
+        <!-- Evidence — layers stack -->
+        <div class="s-icon" title="Evidence">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"
+            stroke-linejoin="round">
+            <polygon points="12 2 2 7 12 12 22 7 12 2" />
+            <polyline points="2 17 12 22 22 17" />
+            <polyline points="2 12 12 17 22 12" />
+          </svg>
+        </div>
+
+        <!-- Weekly digest — inbox tray -->
+        <div class="s-icon" title="Digest">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"
+            stroke-linejoin="round">
+            <polyline points="22 12 16 12 14 15 10 15 8 12 2 12" />
+            <path
+              d="M5.45 5.11L2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z" />
+          </svg>
+        </div>
+
+        <!-- Integrations — plug -->
+        <div class="s-icon" title="Integrations">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"
+            stroke-linejoin="round">
+            <path d="M12 22v-5" />
+            <path d="M9 7V2" />
+            <path d="M15 7V2" />
+            <path d="M18 7H6a2 2 0 0 0-2 2v3a6 6 0 0 0 12 0V9a2 2 0 0 0-2-2z" />
+          </svg>
+        </div>
+
+        <div class="s-spacer"></div>
+        <div class="s-avatar">AJ</div>
+      </div>
+
+      <!-- Main -->
+      <div class="main">
+
+        <!-- Top search bar -->
+        <div class="topbar">
+          <div class="search">
+            <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="10.5" cy="10.5" r="7" />
+              <line x1="21" y1="21" x2="15.8" y2="15.8" />
+            </svg>
+            Start typing to ask or search opportunities
+          </div>
+          <div class="filter-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+              stroke-linejoin="round">
+              <line x1="4" y1="6" x2="20" y2="6" />
+              <line x1="7" y1="12" x2="17" y2="12" />
+              <line x1="10" y1="18" x2="14" y2="18" />
+            </svg>
+            Filter
+          </div>
+        </div>
+
+        <!-- Heading -->
+        <div class="heading-row">
+          <div class="heading-left">
+            <div class="heading-title">Opportunities</div>
+            <div class="heading-sub">Ranked by impact · updated 4 min ago</div>
+          </div>
+          <div class="heading-right">
+            <div class="badge-live">
+              <div class="live-dot"></div>Live
+            </div>
+          </div>
+        </div>
+
+        <!-- List -->
+        <div class="list">
+
+          <!-- column headers -->
+          <div class="col-head">
+            <div class="ch">#</div>
+            <div class="ch">Opportunity</div>
+            <div class="ch">Sources</div>
+            <div class="ch r">Score</div>
+            <div class="ch r">Trend</div>
+          </div>
+
+          <!-- Row 1 — active/selected -->
+          <div class="opp active">
+            <div class="rank">#1</div>
+            <div class="opp-center">
+              <div class="opp-name">Onboarding drop-off at step 3 — connect data source</div>
+              <div class="opp-tags">
+                <div class="tag t-churn">Churn risk</div>
+              </div>
+            </div>
+            <div class="sources">
+              <div class="sd" style="background:#ffffff"><img
+                  src="../pictures/logos/mixpane_trans.png"
+                  style="width:18px;height:18px;object-fit:contain;display:block;border-radius:4px;" alt="mx" /></div>
+              <div class="sd" style="background:#ffffff"><img
+                  src="../pictures/logos/intercom.png"
+                  style="width:18px;height:18px;object-fit:contain;display:block;border-radius:4px;" alt="in" /></div>
+              <div class="sd" style="background:#ffffff"><img
+                  src="../pictures/logos/jira_trans.png"
+                  style="width:18px;height:18px;object-fit:contain;display:block;border-radius:4px;" alt="ji" /></div>
+            </div>
+            <div class="score-cell">
+              <div class="score-num">94</div>
+            </div>
+            <div class="trend up">↑ +12</div>
+          </div>
+
+          <!-- Row 2 -->
+          <div class="opp">
+            <div class="rank">#2</div>
+            <div class="opp-center">
+              <div class="opp-name">No bulk export in Reports — high ARR segment blocking</div>
+              <div class="opp-tags">
+                <div class="tag t-revenue">Revenue</div>
+              </div>
+            </div>
+            <div class="sources">
+              <div class="sd" style="background:#ffffff"><img
+                  src="../pictures/logos/salesforce.png"
+                  style="width:18px;height:18px;object-fit:contain;display:block;border-radius:4px;" alt="sf" /></div>
+              <div class="sd" style="background:#ffffff"><img
+                  src="../pictures/logos/zendesk.png"
+                  style="width:18px;height:18px;object-fit:contain;display:block;border-radius:4px;" alt="zd" /></div>
+            </div>
+            <div class="score-cell">
+              <div class="score-num">87</div>
+            </div>
+            <div class="trend up">↑ +5</div>
+          </div>
+
+          <!-- Row 3 -->
+          <div class="opp">
+            <div class="rank">#3</div>
+            <div class="opp-center">
+              <div class="opp-name">Dashboard loads &gt;4s — session abandonment rising</div>
+              <div class="opp-tags">
+                <div class="tag t-ux">UX friction</div>
+              </div>
+            </div>
+            <div class="sources">
+              <div class="sd" style="background:#ffffff"><img
+                  src="../pictures/logos/mixpane_trans.png"
+                  style="width:18px;height:18px;object-fit:contain;display:block;border-radius:4px;" alt="mx" /></div>
+              <div class="sd" style="background:#ffffff"><img
+                  src="../pictures/logos/amplitude.png"
+                  style="width:18px;height:18px;object-fit:contain;display:block;border-radius:4px;" alt="am" /></div>
+            </div>
+            <div class="score-cell">
+              <div class="score-num">79</div>
+            </div>
+            <div class="trend flat">→ 0</div>
+          </div>
+
+          <!-- Row 4 -->
+          <div class="opp">
+            <div class="rank">#4</div>
+            <div class="opp-center">
+              <div class="opp-name">Slack notifications too noisy — NPS detractors citing this</div>
+              <div class="opp-tags">
+                <div class="tag t-nps">NPS</div>
+              </div>
+            </div>
+            <div class="sources">
+              <div class="sd" style="background:#ffffff"><img
+                  src="../pictures/logos/intercom.png"
+                  style="width:18px;height:18px;object-fit:contain;display:block;border-radius:4px;" alt="in" /></div>
+              <div class="sd" style="background:#ffffff"><img
+                  src="../pictures/logos/zendesk.png"
+                  style="width:18px;height:18px;object-fit:contain;display:block;border-radius:4px;" alt="zd" /></div>
+            </div>
+            <div class="score-cell">
+              <div class="score-num">71</div>
+            </div>
+            <div class="trend down">↓ −3</div>
+          </div>
+
+          <!-- Row 5 -->
+          <div class="opp">
+            <div class="rank">#5</div>
+            <div class="opp-center">
+              <div class="opp-name">No RBAC — blocking 6 enterprise deals ($420k pipeline)</div>
+              <div class="opp-tags">
+                <div class="tag t-growth">Growth</div>
+              </div>
+            </div>
+            <div class="sources">
+              <div class="sd" style="background:#ffffff"><img
+                  src="../pictures/logos/salesforce.png"
+                  style="width:18px;height:18px;object-fit:contain;display:block;border-radius:4px;" alt="sf" /></div>
+            </div>
+            <div class="score-cell">
+              <div class="score-num">68</div>
+            </div>
+            <div class="trend up">↑ +8</div>
+          </div>
+
+          <!-- Row 6 — faded -->
+          <div class="opp dimmed">
+            <div class="rank">#6</div>
+            <div class="opp-center">
+              <div class="opp-name">CSV import fails on files &gt;10MB — power users blocked</div>
+              <div class="opp-tags">
+                <div class="tag t-ux">UX friction</div>
+              </div>
+            </div>
+            <div class="sources">
+              <div class="sd" style="background:#ffffff"><img
+                  src="../pictures/logos/zendesk.png"
+                  style="width:18px;height:18px;object-fit:contain;display:block;border-radius:4px;" alt="zd" /></div>
+              <div class="sd" style="background:#ffffff"><img
+                  src="../pictures/logos/jira_trans.png"
+                  style="width:18px;height:18px;object-fit:contain;display:block;border-radius:4px;" alt="ji" /></div>
+            </div>
+            <div class="score-cell">
+              <div class="score-num">54</div>
+            </div>
+            <div class="trend flat">→ 0</div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+
+</html>

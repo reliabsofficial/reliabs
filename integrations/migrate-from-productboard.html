@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Migrate from Productboard to Reliabs — Complete Migration Guide</title>
+  <meta name="description" content="Moving from Productboard to Reliabs? This step-by-step migration guide shows you how to export your roadmap, features, and feedback — and reconnect your integrations in one session.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://reliabs.app/integrations/migrate-from-productboard">
+  <meta property="og:title" content="Migrate from Productboard to Reliabs — Complete Migration Guide">
+  <meta property="og:url" content="https://reliabs.app/integrations/migrate-from-productboard">
+  <meta property="og:type" content="website">
+  <link rel="icon" type="image/x-icon" href="../reliabslogo/favicon.ico">
+  <link rel="stylesheet" href="../seo-styles.css">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"HowTo","name":"How to Migrate from Productboard to Reliabs","description":"Step-by-step guide to migrating your product roadmap, features, and integrations from Productboard to Reliabs.","step":[{"@type":"HowToStep","name":"Export your Productboard data","text":"Export your roadmap features, insights, and objectives from Productboard in CSV or JSON format."},{"@type":"HowToStep","name":"Import into Reliabs","text":"Use Reliabs migration import tool to bring your roadmap structure into Reliabs in one step."},{"@type":"HowToStep","name":"Reconnect your integrations","text":"Reconnect Jira, Mixpanel, Intercom, and other tools to your new Reliabs workspace."},{"@type":"HowToStep","name":"Invite your team","text":"Add your product team members to Reliabs and assign roles."}]}</script>
+</head>
+<body>
+<nav class="seo-nav"><div class="seo-nav-inner"><a href="../index.html" class="seo-nav-brand"><img src="../reliabslogo/reliabs-logo-64px.png" alt="Reliabs Logo"> RELIABS</a><ul class="seo-nav-links"><li><a href="../index.html#features">Features</a></li><li><a href="index.html">Integrations</a></li><li><a href="../blog/">Blog</a></li></ul><a href="../survey1.html" class="seo-nav-cta" target="_blank">Get Early Access</a></div></nav>
+
+<section class="page-hero">
+  <div class="container">
+    <nav class="breadcrumb"><a href="../index.html">Home</a><span class="breadcrumb-sep">/</span><a href="index.html">Integrations</a><span class="breadcrumb-sep">/</span><span>Migrate from Productboard</span></nav>
+    <div class="hero-pill"><span class="hero-pill-dot"></span>Migration Guide</div>
+    <h1>Migrating from <span class="grad-text">Productboard</span> to Reliabs</h1>
+    <p>Productboard is good at collecting feedback. Reliabs goes further — it synthesizes signals from all your tools, drafts plans automatically, and tracks outcomes when features ship. Here's everything you need to make the switch smoothly.</p>
+    <div class="hero-answer-box">
+      <div class="hero-answer-label">What You Can Bring Over</div>
+      <p>Your roadmap features, product backlog, customer insights, objectives, and all integration connections — including Jira, Intercom, Mixpanel, and Amplitude — can be migrated to Reliabs. Most migrations complete in under a day with no data loss.</p>
+    </div>
+    <a href="../survey1.html" class="btn-primary" target="_blank">Join the Waitlist &amp; Request Migration Help</a>
+  </div>
+</section>
+
+<!-- Why Teams Switch -->
+<section class="section">
+  <div class="container">
+    <div class="section-tag">Why Teams Switch</div>
+    <h2 class="section-heading">Why Product Teams Move from Productboard to Reliabs</h2>
+    <p class="section-sub">Productboard excels at feedback collection. Reliabs goes farther — from signals to strategy to outcomes, in one system.</p>
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-icon" style="font-size:1.1rem;font-weight:700;color:var(--color-accent)">01</div>
+        <h3>Integration Depth</h3>
+        <p>Productboard integrates with tools. Reliabs integrates <em>deeply</em> — bidirectional sync with Jira, live analytics from Mixpanel and Amplitude, and CRM signals from Salesforce mean your roadmap is always grounded in live data.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon" style="font-size:1.1rem;font-weight:700;color:var(--color-accent)">02</div>
+        <h3>Auto-Drafted Product Plans</h3>
+        <p>Reliabs learns your team's language, priorities, and decision style — then drafts product briefs automatically when new signals appear. Productboard surfaces feedback. Reliabs tells you what to do about it.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon" style="font-size:1.1rem;font-weight:700;color:var(--color-accent)">03</div>
+        <h3>Outcome Memory</h3>
+        <p>When a feature ships in Reliabs, it tracks whether the metrics moved. Your team builds a permanent record of which bets worked — something Productboard's roadmap view doesn't provide.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon" style="font-size:1.1rem;font-weight:700;color:var(--color-accent)">04</div>
+        <h3>Universal Product Search</h3>
+        <p>Search across all your tools — Jira tickets, Intercom threads, Mixpanel dashboards — from a single search bar in Reliabs. No more context-switching to find what you already know is somewhere.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- What Moves Over -->
+<section class="section" style="background:var(--color-surface);border-top:1px solid var(--color-border);border-bottom:1px solid var(--color-border);">
+  <div class="container">
+    <div class="section-tag">Data Portability</div>
+    <h2 class="section-heading">What You Can Migrate from Productboard</h2>
+    <div class="compare-table-wrap" style="margin-top:32px;">
+      <table class="compare-table">
+        <thead><tr><th>Data Type</th><th>Migrates to Reliabs?</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td>Roadmap features &amp; hierarchy</td><td class="badge-yes">&#10003; Yes</td><td>Imported as Reliabs product bets with original structure preserved</td></tr>
+          <tr><td>Customer insights &amp; feedback</td><td class="badge-yes">&#10003; Yes</td><td>Imported and re-clustered by Reliabs AI into product signals</td></tr>
+          <tr><td>Objectives / OKRs</td><td class="badge-yes">&#10003; Yes</td><td>Mapped to Reliabs roadmap objectives layer</td></tr>
+          <tr><td>Feature statuses</td><td class="badge-yes">&#10003; Yes</td><td>Mapped to equivalent Reliabs delivery stages</td></tr>
+          <tr><td>Jira integration links</td><td class="badge-yes">&#10003; Yes</td><td>Reconnected via Reliabs Jira integration — no data loss</td></tr>
+          <tr><td>Intercom integration</td><td class="badge-yes">&#10003; Yes</td><td>Reconnected; historical conversations re-analyzed for signals</td></tr>
+          <tr><td>Team members &amp; roles</td><td class="badge-yes">&#10003; Yes</td><td>Invited via email; role mapping guides available</td></tr>
+          <tr><td>Historical analytics connections</td><td class="badge-yes">&#10003; Yes</td><td>Mixpanel and Amplitude reconnected with existing metric baselines</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- Migration Steps -->
+<section class="section">
+  <div class="container">
+    <div class="section-tag">Step-by-Step Guide</div>
+    <h2 class="section-heading">How to Migrate from Productboard to Reliabs</h2>
+    <p class="section-sub">Most teams complete this migration in a single working session. Here is the full process.</p>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-body"><h3>Export Your Productboard Data</h3><p>In Productboard, go to Settings &rarr; Export. Export your features, insights, and objectives in CSV format. Export each section separately: Features, Objectives, and Customer Insights.</p></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-body"><h3>Create Your Reliabs Workspace</h3><p>Join the Reliabs waitlist and request early access with migration priority. Once access is granted, create your workspace and configure your product areas to match your Productboard hierarchy.</p></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-body"><h3>Import via Reliabs Migration Tool</h3><p>In Reliabs Settings &rarr; Import, select "Migrate from Productboard." Upload your exported CSVs. Reliabs maps your Productboard features to product bets, preserving hierarchy and status.</p></div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-body"><h3>Reconnect Your Integrations</h3><p>Go to Reliabs Settings &rarr; Integrations and reconnect each tool: Jira, Intercom, Mixpanel, Amplitude, Salesforce. Your existing data in those tools remains intact — Reliabs re-indexes it for your new workspace.</p></div></div>
+      <div class="step"><div class="step-num">5</div><div class="step-body"><h3>Invite Your Team</h3><p>Go to Settings &rarr; Team and invite your team members via email. Reliabs supports role-based permissions: PM, Viewer, and Admin roles map intuitively from Productboard's permission model.</p></div></div>
+      <div class="step"><div class="step-num">6</div><div class="step-body"><h3>Run Your First Reliabs Briefing</h3><p>With integrations connected, trigger your first weekly briefing. Reliabs will synthesize signals from all your connected tools and deliver a ranked list of product opportunities — your first experience of the Reliabs intelligence layer.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- Comparison Table -->
+<section class="section" style="background:var(--color-surface);border-top:1px solid var(--color-border);border-bottom:1px solid var(--color-border);">
+  <div class="container">
+    <div class="section-tag">Productboard vs. Reliabs</div>
+    <h2 class="section-heading">Feature Comparison</h2>
+    <div class="compare-table-wrap" style="margin-top:32px;">
+      <table class="compare-table">
+        <thead><tr><th>Feature</th><th>Productboard</th><th>Reliabs</th></tr></thead>
+        <tbody>
+          <tr><td>Feedback collection &amp; consolidation</td><td class="badge-yes">&#10003;</td><td class="badge-yes">&#10003;</td></tr>
+          <tr><td>Roadmap planning</td><td class="badge-yes">&#10003;</td><td class="badge-yes">&#10003;</td></tr>
+          <tr><td>Jira bidirectional sync</td><td class="badge-part">Partial</td><td class="badge-yes">&#10003; Full</td></tr>
+          <tr><td>Auto-drafted product plans</td><td class="badge-no">&#10007;</td><td class="badge-yes">&#10003;</td></tr>
+          <tr><td>Live analytics integration (Mixpanel, Amplitude)</td><td class="badge-part">Partial</td><td class="badge-yes">&#10003; Deep</td></tr>
+          <tr><td>CRM signal ingestion (Salesforce, HubSpot)</td><td class="badge-no">&#10007;</td><td class="badge-yes">&#10003;</td></tr>
+          <tr><td>Outcome tracking post-launch</td><td class="badge-no">&#10007;</td><td class="badge-yes">&#10003;</td></tr>
+          <tr><td>Universal cross-tool search</td><td class="badge-no">&#10007;</td><td class="badge-yes">&#10003;</td></tr>
+          <tr><td>AI-ranked product opportunities</td><td class="badge-part">Limited</td><td class="badge-yes">&#10003;</td></tr>
+          <tr><td>Weekly automated PM briefing</td><td class="badge-no">&#10007;</td><td class="badge-yes">&#10003;</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- FAQs -->
+<section class="section">
+  <div class="container">
+    <div class="section-tag">FAQs</div>
+    <h2 class="section-heading">Migration FAQs</h2>
+    <div class="faq-list" style="max-width:720px;margin-top:32px;">
+      <div class="faq-item-seo"><div class="faq-q">How long does the migration take?<div class="faq-q-icon">+</div></div><div class="faq-a"><p>Most teams complete the entire migration — data import, integration reconnection, and team invites — in a single working session of 2 to 4 hours. We provide a dedicated migration checklist and a Reliabs team member to assist during your first session.</p></div></div>
+      <div class="faq-item-seo"><div class="faq-q">Do I lose my Productboard data?<div class="faq-q-icon">+</div></div><div class="faq-a"><p>No. Productboard exports a full copy of your data. Your Productboard workspace remains untouched throughout the migration — you can run both tools in parallel before fully switching over.</p></div></div>
+      <div class="faq-item-seo"><div class="faq-q">Will my Jira integration be disrupted?<div class="faq-q-icon">+</div></div><div class="faq-a"><p>No. Your Jira data remains in Jira throughout the migration. You simply reconnect Jira to Reliabs — the integration is re-established with your existing Jira data intact. Productboard's Jira connection can be disconnected after you have verified the Reliabs connection is working correctly.</p></div></div>
+      <div class="faq-item-seo"><div class="faq-q">Can I run Productboard and Reliabs at the same time during transition?<div class="faq-q-icon">+</div></div><div class="faq-a"><p>Yes, and we recommend it. Run both in parallel for 2 to 4 weeks, using Reliabs for new work while your existing Productboard roadmap continues. Once your team is comfortable, complete the cutover.</p></div></div>
+      <div class="faq-item-seo"><div class="faq-q">Is there a migration support service?<div class="faq-q-icon">+</div></div><div class="faq-a"><p>Yes. Early access Reliabs users who are migrating from Productboard receive dedicated migration support. Join the waitlist and mention your migration when you sign up — we will prioritize your onboarding.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section-sm"><div class="container"><div class="cta-banner"><h2>Ready to move from Productboard to Reliabs?</h2><p>Join the waitlist and mention migration — we will guide you through the switch from day one.</p><div class="cta-btn-group"><a href="../survey1.html" class="btn-primary" target="_blank">Join the Waitlist</a><a href="index.html" class="btn-secondary">View all integrations</a></div></div></div></section>
+<footer class="seo-footer"><div class="seo-footer-inner"><a href="../index.html" class="seo-footer-brand"><img src="../reliabslogo/reliabs-logo-64px.png" alt="Reliabs Logo"> RELIABS</a><nav class="seo-footer-links"><a href="../index.html">Home</a><a href="index.html">Integrations</a><a href="../blog/">Blog</a><a href="../survey1.html" target="_blank">Get Early Access</a></nav><p class="seo-footer-copy">&#169; 2026 Reliabs. All rights reserved.</p></div></footer>
+<script>document.querySelectorAll('.faq-item-seo').forEach(item=>{item.addEventListener('click',()=>{const o=item.classList.contains('open');document.querySelectorAll('.faq-item-seo').forEach(i=>i.classList.remove('open'));if(!o)item.classList.add('open');});});</script>
+</body></html>

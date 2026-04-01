@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hero Mock</title>
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      background: #0a0a0a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', sans-serif;
+    }
+
+    /* ═══════════════════════════
+       PHONE WRAP + BUTTONS
+    ═══════════════════════════ */
+    .phone-wrap {
+      position: relative;
+    }
+
+    .btn-silent {
+      position: absolute;
+      left: -3.5px;
+      top: 108px;
+      width: 3.5px;
+      height: 28px;
+      background: #c0c0c4;
+      border-radius: 2px 0 0 2px;
+    }
+
+    .btn-vol-up {
+      position: absolute;
+      left: -3.5px;
+      top: 150px;
+      width: 3.5px;
+      height: 50px;
+      background: #c0c0c4;
+      border-radius: 2px 0 0 2px;
+    }
+
+    .btn-vol-dn {
+      position: absolute;
+      left: -3.5px;
+      top: 212px;
+      width: 3.5px;
+      height: 50px;
+      background: #c0c0c4;
+      border-radius: 2px 0 0 2px;
+    }
+
+    .btn-power {
+      position: absolute;
+      right: -3.5px;
+      top: 168px;
+      width: 3.5px;
+      height: 66px;
+      background: #c0c0c4;
+      border-radius: 0 2px 2px 0;
+    }
+
+    /* ── outer silver-white frame ── */
+    .phone {
+      width: 295px;
+      height: 610px;
+      border-radius: 52px;
+      background: linear-gradient(160deg, #f0f0f2 0%, #dddde0 40%, #d0d0d4 55%, #dcdcdf 70%, #eeeef1 100%);
+      padding: 3px;
+      box-shadow:
+        0 0 0 0.5px rgba(0, 0, 0, 0.1),
+        0 16px 40px rgba(0, 0, 0, 0.08),
+        inset 0 1.5px 0 rgba(255, 255, 255, 0.95),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.08);
+    }
+
+    /* ── screen ── */
+    .screen {
+      width: 100%;
+      height: 100%;
+      border-radius: 49px;
+      background: #f4f6f9;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* ── soft blobs — BLUE versions replacing orange/green ── */
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(55px);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* left blob — warm blue (replacing orange) */
+    .blob-l {
+      width: 230px;
+      height: 230px;
+      top: -30px;
+      left: -50px;
+      background: radial-gradient(circle, rgba(147, 197, 253, 0.55) 0%, rgba(96, 165, 250, 0.25) 50%, transparent 75%);
+    }
+
+    /* right blob — light cyan/sky (replacing teal/mint) */
+    .blob-r {
+      width: 200px;
+      height: 200px;
+      top: -20px;
+      right: -40px;
+      background: radial-gradient(circle, rgba(186, 230, 255, 0.5) 0%, rgba(125, 211, 252, 0.2) 50%, transparent 75%);
+    }
+
+    /* subtle center wash */
+    .blob-c {
+      width: 280px;
+      height: 200px;
+      top: 60px;
+      left: -20px;
+      background: radial-gradient(ellipse, rgba(219, 234, 254, 0.3) 0%, transparent 70%);
+    }
+
+    /* ── Dynamic Island ── */
+    .island {
+      position: absolute;
+      top: 13px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 106px;
+      height: 30px;
+      background: #111;
+      border-radius: 20px;
+      z-index: 10;
+    }
+
+    .island::after {
+      content: '';
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: #1c1c1e;
+      border: 1.5px solid #2c2c2e;
+    }
+
+    /* ── status bar ── */
+    .statusbar {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 54px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      padding: 0 24px 8px;
+      z-index: 9;
+    }
+
+    .s-time {
+      font-size: 15px;
+      font-weight: 600;
+      color: #0f172a;
+    }
+
+    .s-icons {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    /* ── main text content — sits low like reference ── */
+    .main {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 130px;
+      padding: 0 28px;
+      z-index: 2;
+    }
+
+    .greeting {
+      font-size: 25px;
+      font-weight: 600;
+      color: #0f172a;
+      letter-spacing: -0.025em;
+      line-height: 1;
+      margin-bottom: 10px;
+    }
+
+    .greeting-sub {
+      font-size: 19px;
+      font-weight: 400;
+      color: #94a3b8;
+      line-height: 1;
+      letter-spacing: -0.015em;
+      margin-bottom: 30px;
+    }
+
+    /* ── search bar — blue gradient border ── */
+    .searchbar-wrap {
+      position: relative;
+      border-radius: 99px;
+      padding: 1.5px;
+      background: linear-gradient(135deg, #1d4ed8, #3b82f6, #7dd3fc, #38bdf8);
+    }
+
+    .searchbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 13px 10px 13px 20px;
+      border-radius: 99px;
+      background: #f4f6f9;
+    }
+
+    .searchbar-text {
+      font-size: 17px;
+      color: #94a3b8;
+      letter-spacing: 0.01em;
+    }
+
+    /* blue gradient send button */
+    .send-btn {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: linear-gradient(145deg, #60a5fa 0%, #3b82f6 45%, #2563eb 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 10px rgba(59, 130, 246, 0.45);
+      flex-shrink: 0;
+    }
+
+    .send-btn svg {
+      width: 16px;
+      height: 16px;
+      stroke: #fff;
+      fill: none;
+      stroke-width: 2.4;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    /* ── bottom nav ── */
+    .bottomnav {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 86px;
+      background: rgba(242, 244, 248, 0.92);
+      border-top: 0.5px solid rgba(0, 0, 0, 0.07);
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      padding: 0 16px 18px;
+      z-index: 5;
+    }
+
+    .nav-item {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #94a3b8;
+    }
+
+    .nav-item svg {
+      width: 24px;
+      height: 24px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.6;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    /* first icon active — blue */
+    .nav-item.active {
+      color: #3b82f6;
+    }
+
+    /* ── center BLUE glossy orb (replacing orange) ── */
+    .nav-orb {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      position: relative;
+      flex-shrink: 0;
+      /* deep blue glossy ball */
+      background: radial-gradient(circle at 38% 30%,
+          #93c5fd 0%,
+          #3b82f6 30%,
+          #1d4ed8 62%,
+          #1e3a8a 100%);
+      box-shadow:
+        0 6px 20px rgba(37, 99, 235, 0.6),
+        0 2px 6px rgba(37, 99, 235, 0.3),
+        inset 0 1px 2px rgba(255, 255, 255, 0.35),
+        inset 0 -2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    /* highlight glint */
+    .nav-orb::after {
+      content: '';
+      position: absolute;
+      top: 9px;
+      left: 13px;
+      width: 14px;
+      height: 9px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.35);
+      filter: blur(2px);
+      transform: rotate(-20deg);
+    }
+
+    /* home bar */
+    .homebar {
+      position: absolute;
+      bottom: 7px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 104px;
+      height: 4px;
+      background: rgba(0, 0, 0, 0.16);
+      border-radius: 99px;
+      z-index: 10;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="phone-wrap">
+    <div class="btn-silent"></div>
+    <div class="btn-vol-up"></div>
+    <div class="btn-vol-dn"></div>
+    <div class="btn-power"></div>
+
+    <div class="phone">
+      <div class="screen">
+
+        <!-- Blobs -->
+        <div class="blob blob-l"></div>
+        <div class="blob blob-r"></div>
+        <div class="blob blob-c"></div>
+
+        <!-- Dynamic Island -->
+        <div class="island"></div>
+
+        <!-- Status bar -->
+        <div class="statusbar">
+          <span class="s-time">9:41</span>
+          <div class="s-icons">
+            <svg width="17" height="12" viewBox="0 0 17 12" fill="#0f172a">
+              <rect x="0" y="7" width="3" height="5" rx="0.8" />
+              <rect x="4.5" y="4.5" width="3" height="7.5" rx="0.8" />
+              <rect x="9" y="2" width="3" height="10" rx="0.8" />
+              <rect x="13.5" y="0" width="3" height="12" rx="0.8" fill="rgba(0,0,0,0.2)" />
+            </svg>
+            <svg width="16" height="12" viewBox="0 0 16 12" fill="none">
+              <path d="M8 9a1.4 1.4 0 1 1 0 2.8A1.4 1.4 0 0 1 8 9z" fill="#0f172a" />
+              <path d="M4.5 6.2C5.7 5 6.8 4.4 8 4.4s2.3.6 3.5 1.8" stroke="#0f172a" stroke-width="1.3"
+                stroke-linecap="round" />
+              <path d="M1.5 3.2C3.5 1.2 5.6 0.3 8 0.3s4.5.9 6.5 2.9" stroke="rgba(0,0,0,0.2)" stroke-width="1.3"
+                stroke-linecap="round" />
+            </svg>
+            <svg width="25" height="12" viewBox="0 0 25 12" fill="none">
+              <rect x="0.5" y="0.5" width="21" height="11" rx="2.8" stroke="rgba(0,0,0,0.3)" stroke-width="1" />
+              <rect x="2" y="2" width="15" height="8" rx="1.8" fill="#0f172a" />
+              <path d="M23 3.8v4.4a2.2 2.2 0 0 0 0-4.4z" fill="rgba(0,0,0,0.2)" />
+            </svg>
+          </div>
+        </div>
+
+        <!-- Main text + search -->
+        <div class="main">
+          <div class="greeting">Good morning,Emmanuel.</div>
+          <div class="greeting-sub">You've got 3 new signals<br>and 8 open opportunities</div>
+
+          <div class="searchbar-wrap">
+            <div class="searchbar">
+              <span class="searchbar-text">Ask Reliabs</span>
+              <div class="send-btn">
+                <svg viewBox="0 0 16 16">
+                  <line x1="8" y1="13" x2="8" y2="3" />
+                  <polyline points="4,7 8,3 12,7" />
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bottom nav -->
+        <div class="bottomnav">
+
+          <!-- icon 1 — active blue -->
+          <div class="nav-item active">
+            <svg viewBox="0 0 24 24">
+              <polyline points="22,12 18,12 15,21 9,3 6,12 2,12" />
+            </svg>
+          </div>
+
+          <!-- icon 2 — inbox -->
+          <div class="nav-item">
+            <svg viewBox="0 0 24 24">
+              <rect x="2" y="4" width="20" height="16" rx="2" />
+              <polyline points="2,8 12,14 22,8" />
+            </svg>
+          </div>
+
+          <!-- center orb -->
+          <div class="nav-orb"></div>
+
+          <!-- icon 4 — person -->
+          <div class="nav-item">
+            <svg viewBox="0 0 24 24">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+              <circle cx="12" cy="7" r="4" />
+            </svg>
+          </div>
+
+          <!-- icon 5 — settings -->
+          <div class="nav-item">
+            <svg viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="3" />
+              <path
+                d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
+            </svg>
+          </div>
+
+        </div>
+
+        <div class="homebar"></div>
+
+      </div>
+    </div>
+  </div>
+
+</body>
+
+</html>

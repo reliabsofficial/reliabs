@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<title>V1 — Draft Plan</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: #ffffff;
+    width: 420px;
+    height: 360px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .scene {
+    width: 420px;
+    height: 320px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  /* ── TOP: SIGNAL PILLS ── */
+  .signal-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    opacity: 0;
+    animation: fadeUp 0.4s 0.1s ease forwards;
+  }
+
+  .signal-pill {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 10px;
+    border-radius: 99px;
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+  }
+
+  .sp-blue { background: #eff6ff; color: #2563eb; border: 1px solid #bfdbfe; }
+  .sp-amber { background: #fffbeb; color: #b45309; border: 1px solid #fde68a; }
+  .sp-red { background: #fef2f2; color: #dc2626; border: 1px solid #fecaca; }
+
+  .pill-dot { width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
+
+  /* ── MAIN BRIEF CARD ── */
+  .brief-card {
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06), 0 0 0 1px rgba(37,99,235,0.06);
+    opacity: 0;
+    animation: fadeUp 0.5s 0.4s ease forwards;
+  }
+
+  /* card header bar */
+  .brief-header {
+    background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .brief-header-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .brief-title {
+    font-size: 11px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.95);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .brief-badge {
+    font-size: 9px;
+    font-weight: 700;
+    background: rgba(255,255,255,0.2);
+    color: #fff;
+    border-radius: 4px;
+    padding: 2px 6px;
+    letter-spacing: 0.04em;
+  }
+  .score-badge {
+    font-size: 11px;
+    font-weight: 700;
+    color: #fff;
+    background: rgba(255,255,255,0.18);
+    border-radius: 6px;
+    padding: 3px 9px;
+  }
+
+  .brief-body {
+    padding: 14px 16px 12px;
+  }
+
+  /* typed title */
+  .brief-h {
+    font-size: 13px;
+    font-weight: 700;
+    color: #0f172a;
+    letter-spacing: -0.02em;
+    line-height: 1.35;
+    margin-bottom: 12px;
+    min-height: 18px;
+  }
+
+  .cursor {
+    display: inline-block;
+    width: 2px; height: 13px;
+    background: #2563eb;
+    border-radius: 1px;
+    vertical-align: middle;
+    margin-left: 1px;
+    opacity: 0;
+    animation: blink 0.75s 0.9s infinite;
+    animation-fill-mode: forwards;
+  }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+  /* writing lines — animated left to right */
+  .writing-lines {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 12px;
+  }
+
+  .wline {
+    height: 7px;
+    border-radius: 3px;
+    background: #f1f5f9;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .wline::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, #dbeafe, #bfdbfe);
+    border-radius: 3px;
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+
+  .wl1::after { animation: growLine 0.55s 1.1s ease forwards; }
+  .wl2::after { animation: growLine 0.5s 1.4s ease forwards; }
+  .wl3 { width: 70%; }
+  .wl3::after { animation: growLine 0.4s 1.7s ease forwards; }
+
+  @keyframes growLine { to { transform: scaleX(1); } }
+
+  /* TICKET CHIPS */
+  .ticket-row {
+    display: flex;
+    gap: 6px;
+    opacity: 0;
+    animation: fadeUp 0.4s 2.0s ease forwards;
+  }
+
+  .tkt {
+    flex: 1;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 7px 10px;
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .tkt-icon {
+    width: 18px; height: 18px;
+    border-radius: 5px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 9px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .ti-blue { background: #dbeafe; color: #2563eb; }
+  .ti-teal { background: #ccfbf1; color: #0d9488; }
+  .ti-violet { background: #ede9fe; color: #7c3aed; }
+
+  .tkt-text {
+    font-size: 10.5px;
+    font-weight: 500;
+    color: #475569;
+    line-height: 1.35;
+  }
+
+  /* BOTTOM ROW */
+  .bottom-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    opacity: 0;
+    animation: fadeUp 0.4s 2.5s ease forwards;
+  }
+
+  .sources-row {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .src-lbl {
+    font-size: 10px;
+    color: #94a3b8;
+    font-weight: 500;
+    margin-right: 3px;
+  }
+
+  .src-logo {
+    width: 20px; height: 20px;
+    border-radius: 5px;
+    overflow: hidden;
+    border: 0.5px solid rgba(0,0,0,0.1);
+    opacity: 0;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  .src-logo img {
+    width: 20px; height: 20px;
+    object-fit: contain;
+    mix-blend-mode: multiply;
+  }
+
+  .sl1 { animation: pop 0.25s 2.6s ease forwards; }
+  .sl2 { animation: pop 0.25s 2.75s ease forwards; }
+  .sl3 { animation: pop 0.25s 2.9s ease forwards; }
+  .sl4 { animation: pop 0.25s 3.05s ease forwards; }
+
+  @keyframes pop {
+    from { opacity:0; transform:scale(0.6); }
+    to { opacity:1; transform:scale(1); }
+  }
+
+  .ready-badge {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11px;
+    font-weight: 700;
+    color: #0d9488;
+    background: #f0fdfa;
+    border: 1px solid #99f6e4;
+    border-radius: 99px;
+    padding: 4px 12px;
+    opacity: 0;
+    animation: fadeUp 0.3s 3.2s ease forwards;
+  }
+
+  .ready-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: #0d9488;
+  }
+
+  @keyframes fadeUp {
+    from { opacity:0; transform:translateY(6px); }
+    to { opacity:1; transform:translateY(0); }
+  }
+
+  .logo-box {
+    background: #ffffff;
+    border: 0.75px solid rgba(0,0,0,0.1);
+    border-radius: 5px;
+    width: 22px; height: 22px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    overflow: hidden;
+  }
+  .logo-box img { width: 18px; height: 18px; object-fit: contain; mix-blend-mode: multiply; display: block; }
+</style>
+</head>
+<body>
+<div class="scene">
+
+  <div class="signal-row">
+    <div class="signal-pill sp-red"><div class="pill-dot"></div>847 users dropping off</div>
+    <div class="signal-pill sp-amber"><div class="pill-dot"></div>34 support tickets</div>
+    <div class="signal-pill sp-blue"><div class="pill-dot"></div>Score 94</div>
+  </div>
+
+  <div class="brief-card">
+    <div class="brief-header">
+      <div class="brief-header-left">
+        <div class="brief-title">Auto-drafting brief</div>
+        <div class="brief-badge">OPPORTUNITY #1</div>
+      </div>
+      <div class="score-badge">↑ +12 this week</div>
+    </div>
+    <div class="brief-body">
+
+      <div class="brief-h">
+        <span id="typed"></span><span class="cursor"></span>
+      </div>
+
+      <div class="writing-lines">
+        <div class="wline wl1"></div>
+        <div class="wline wl2"></div>
+        <div class="wline wl3"></div>
+      </div>
+
+      <div class="ticket-row">
+        <div class="tkt">
+          <div class="tkt-icon ti-blue">①</div>
+          <div class="tkt-text">Redesign OAuth step</div>
+        </div>
+        <div class="tkt">
+          <div class="tkt-icon ti-teal">②</div>
+          <div class="tkt-text">Inline API help text</div>
+        </div>
+        <div class="tkt">
+          <div class="tkt-icon ti-violet">③</div>
+          <div class="tkt-text">Track step completion</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="bottom-row">
+    <div class="sources-row">
+      <span class="src-lbl">Signals from</span>
+      <div class="src-logo sl1" style="background:#fff;border:0.75px solid rgba(0,0,0,0.1);border-radius:5px;width:22px;height:22px;display:flex;align-items:center;justify-content:center;overflow:hidden;"><img src="../pictures/logos/mixpane_trans.png" style="width:18px;height:18px;object-fit:contain;mix-blend-mode:multiply;display:block;"/></div>
+      <div class="src-logo sl2" style="background:#fff;border:0.75px solid rgba(0,0,0,0.1);border-radius:5px;width:22px;height:22px;display:flex;align-items:center;justify-content:center;overflow:hidden;"><img src="../pictures/logos/intercom.png" style="width:18px;height:18px;object-fit:contain;mix-blend-mode:multiply;display:block;"/></div>
+      <div class="src-logo sl3" style="background:#fff;border:0.75px solid rgba(0,0,0,0.1);border-radius:5px;width:22px;height:22px;display:flex;align-items:center;justify-content:center;overflow:hidden;"><img src="../pictures/logos/jira_trans.png" style="width:18px;height:18px;object-fit:contain;mix-blend-mode:multiply;display:block;"/></div>
+      <div class="src-logo sl4" style="background:#fff;border:0.75px solid rgba(0,0,0,0.1);border-radius:5px;width:22px;height:22px;display:flex;align-items:center;justify-content:center;overflow:hidden;"><img src="../pictures/logos/salesforce.png" style="width:18px;height:18px;object-fit:contain;mix-blend-mode:multiply;display:block;"/></div>
+    </div>
+    <div class="ready-badge"><div class="ready-dot"></div>Ready in 4s</div>
+  </div>
+
+</div>
+
+<script>
+  const text = "Fix onboarding drop-off at step 3";
+  const el = document.getElementById('typed');
+  let i = 0;
+  setTimeout(() => {
+    const t = setInterval(() => {
+      if (i < text.length) { el.textContent += text[i]; i++; }
+      else clearInterval(t);
+    }, 55);
+  }, 900);
+  setTimeout(() => location.reload(), 5500);
+</script>
+</body>
+</html>

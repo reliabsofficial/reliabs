@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Outcome Mock</title>
+  <style>
+    :root {
+      --grid-line-color: #030303;
+      --grid-size: 24px;
+      --grid-line-width: 0.6px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { width: 100%; height: 100%; }
+
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', sans-serif;
+      overflow: hidden;
+    }
+
+
+
+    /* ═══════════════════════
+       STACK OF BET CARDS
+    ═══════════════════════ */
+    .stack {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      width: 420px;
+    }
+
+    /* each bet row */
+    .bet {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 16px 20px;
+      background: rgba(255,255,255,0.04);
+      border: 0.75px solid rgba(255,255,255,0.09);
+      border-radius: 18px;
+      transition: opacity 0.2s;
+    }
+
+    /* dim the last card — fading out like the Kinso ref */
+    .bet:last-child {
+      opacity: 0.38;
+    }
+
+    /* left: epic icon + name */
+    .bet-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex: 1;
+      min-width: 0;
+    }
+    .bet-icon {
+      width: 40px; height: 40px;
+      border-radius: 12px;
+      flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px;
+      background: rgba(255,255,255,0.05);
+      border: 0.75px solid rgba(255,255,255,0.08);
+    }
+    .bet-meta { min-width: 0; }
+    .bet-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.88);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-bottom: 3px;
+    }
+    .bet-sub {
+      font-size: 10.5px;
+      color: rgba(255,255,255,0.3);
+    }
+
+    /* middle: before → after metric */
+    .bet-metric {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      flex-shrink: 0;
+    }
+    .m-before {
+      font-size: 13px;
+      color: rgba(255,255,255,0.28);
+      font-variant-numeric: tabular-nums;
+    }
+    .m-arrow {
+      font-size: 11px;
+      color: rgba(255,255,255,0.18);
+    }
+    .m-after {
+      font-size: 15px;
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+    }
+    .up   { color: #4ade80; }
+    .down { color: #f87171; }
+    .flat { color: rgba(255,255,255,0.55); }
+
+    /* right: outcome badge */
+    .badge {
+      flex-shrink: 0;
+      padding: 5px 12px;
+      border-radius: 99px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+    }
+    .hit {
+      background: rgba(74,222,128,0.12);
+      border: 0.75px solid rgba(74,222,128,0.25);
+      color: #4ade80;
+    }
+    .missed {
+      background: rgba(248,113,113,0.1);
+      border: 0.75px solid rgba(248,113,113,0.22);
+      color: #f87171;
+    }
+    .unclear {
+      background: rgba(251,191,36,0.08);
+      border: 0.75px solid rgba(251,191,36,0.18);
+      color: #fbbf24;
+    }
+
+  </style>
+</head>
+<body>
+
+
+
+  <div class="stack">
+
+    <!-- BET 1 — HIT -->
+    <div class="bet">
+      <div class="bet-left">
+        <div class="bet-icon">🚀</div>
+        <div class="bet-meta">
+          <div class="bet-name">Onboarding redesign</div>
+          <div class="bet-sub">Trial → Paid conversion</div>
+        </div>
+      </div>
+      <div class="bet-metric">
+        <span class="m-before">34%</span>
+        <span class="m-arrow">→</span>
+        <span class="m-after up">61%</span>
+      </div>
+      <div class="badge hit">✓ Hit</div>
+    </div>
+
+    <!-- BET 2 — MISSED -->
+    <div class="bet">
+      <div class="bet-left">
+        <div class="bet-icon">📊</div>
+        <div class="bet-meta">
+          <div class="bet-name">Dashboard v2 launch</div>
+          <div class="bet-sub">Weekly active users</div>
+        </div>
+      </div>
+      <div class="bet-metric">
+        <span class="m-before">2.1k</span>
+        <span class="m-arrow">→</span>
+        <span class="m-after down">1.9k</span>
+      </div>
+      <div class="badge missed">✕ Missed</div>
+    </div>
+
+    <!-- BET 3 — UNCLEAR -->
+    <div class="bet">
+      <div class="bet-left">
+        <div class="bet-icon">🔔</div>
+        <div class="bet-meta">
+          <div class="bet-name">Smart digest emails</div>
+          <div class="bet-sub">7-day retention rate</div>
+        </div>
+      </div>
+      <div class="bet-metric">
+        <span class="m-before">58%</span>
+        <span class="m-arrow">→</span>
+        <span class="m-after flat">59%</span>
+      </div>
+      <div class="badge unclear">~ Unclear</div>
+    </div>
+
+    <!-- BET 4 — HIT (faded / dimmed) -->
+    <div class="bet">
+      <div class="bet-left">
+        <div class="bet-icon">⚡</div>
+        <div class="bet-meta">
+          <div class="bet-name">Schema builder UX fix</div>
+          <div class="bet-sub">Enterprise churn rate</div>
+        </div>
+      </div>
+      <div class="bet-metric">
+        <span class="m-before">12%</span>
+        <span class="m-arrow">→</span>
+        <span class="m-after up">4%</span>
+      </div>
+      <div class="badge hit">✓ Hit</div>
+    </div>
+
+  </div>
+
+</body>
+</html>

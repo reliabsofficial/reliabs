@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Primary SEO -->
+  <title>Join the Waitlist — Reliabs</title>
+  <meta name="description" content="Join 2,847+ product leaders on the Reliabs waitlist. Get early access to AI-powered product intelligence that unifies your signals, tools, and outcomes.">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#000000">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Join the Waitlist — Reliabs">
+  <meta property="og:description" content="Join 2,847+ product leaders on the Reliabs waitlist. Get early access to AI-powered product intelligence.">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Join the Waitlist — Reliabs">
+  <meta name="twitter:description" content="Join 2,847+ product leaders on the Reliabs waitlist. Get early access to AI-powered product intelligence.">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@600&display=swap"
+    rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #000;
+      color: #fff;
+      overflow: hidden;
+      /* Hide scrollbars for full slide effect */
+      height: 100vh;
+    }
+
+    /* The Grid Background */
+    .bg-iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* Form Container that handles the slides */
+    .survey-wrapper {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    form {
+      width: 100%;
+      max-width: 600px;
+      height: 100vh;
+      position: relative;
+    }
+
+    /* Slide mechanics */
+    .slide {
+      position: absolute;
+      top: 100%;
+      /* Start off-screen at bottom */
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      pointer-events: none;
+      /* FAST upward slide transition - 0.4s to fly up, fade out */
+      transition: top 0.4s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.3s ease-out;
+    }
+
+    .slide.active {
+      top: 0;
+      /* Come into view */
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .slide.slide-up-out {
+      top: -100%;
+      /* Zip upwards */
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    /* Text Styles */
+    .main-text {
+      font-size: 32px;
+      font-weight: 600;
+      margin-bottom: 40px;
+      text-align: center;
+      line-height: 1.3;
+    }
+
+    .sub-text {
+      font-size: 14px;
+      color: #a1a1a1;
+      margin-top: 10px;
+      text-align: center;
+    }
+
+    .sub-text-legal {
+      font-size: 12px;
+      color: #6a6a6a;
+      margin-bottom: 30px;
+      text-align: left;
+      max-width: 500px;
+    }
+
+    /* Slide 1 specifics */
+    .mockup-container {
+      width: 600px;
+      height: 480px;
+      margin-bottom: 20px;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 40px;
+    }
+
+    .mockup-iframe {
+      width: 1200px;
+      /* Force iframe to render large code */
+      height: 900px;
+      /* Then scale it */
+      border: none;
+      transform: scale(0.9);
+      transform-origin: center center;
+      pointer-events: none;
+      background: transparent;
+    }
+
+    /* Buttons (Pill) */
+    .btn-pill {
+      background-color: #fff;
+      color: #000;
+      padding: 12px 35px;
+      font-size: 16px;
+      font-weight: 600;
+      border-radius: 50px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      margin-bottom: 5px;
+      outline: none;
+    }
+
+    .btn-pill:hover {
+      background-color: #e0e0e0;
+      transform: translateY(-2px);
+    }
+
+    /* MCQ Options list */
+    .options-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      width: 100%;
+      max-width: 500px;
+      margin-bottom: 40px;
+    }
+
+    .option-label {
+      display: flex;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 16px 20px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      position: relative;
+    }
+
+    .option-label:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    .option-label input {
+      position: absolute;
+      opacity: 0;
+      cursor: pointer;
+    }
+
+    /* Highlight when selected */
+    .option-label.selected {
+      background: rgba(255, 255, 255, 0.15);
+      border-color: #fff;
+    }
+
+    .option-content {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      width: 100%;
+      opacity: 0.8;
+      transition: all 0.2s ease;
+    }
+
+    .option-label.selected .option-content {
+      opacity: 1;
+    }
+
+    .option-label.selected .option-letter {
+      background: #fff;
+      color: #000;
+    }
+
+    .option-letter {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 25px;
+      height: 25px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      font-family: 'JetBrains Mono', monospace;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      transition: all 0.2s ease;
+    }
+
+    .option-text {
+      font-size: 15px;
+      font-weight: 500;
+    }
+
+    /* Inputs */
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      width: 100%;
+      max-width: 500px;
+      margin-bottom: 40px;
+    }
+
+    .input-field {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 12px;
+      padding: 18px 20px;
+      color: #fff;
+      font-size: 18px;
+      font-family: 'Inter', sans-serif;
+      transition: all 0.3s ease;
+      outline: none;
+    }
+
+    .input-field::placeholder {
+      color: #888;
+    }
+
+    .input-field:focus {
+      border-color: #fff;
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .error-msg {
+      color: #ff6b6b;
+      font-size: 13px;
+      margin-top: -30px;
+      margin-bottom: 25px;
+      display: none;
+      text-align: center;
+    }
+
+    /* Inner container to restrict width mostly */
+    .slide-content {
+      width: 100%;
+      max-width: 500px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .slide-content.left {
+      align-items: flex-start;
+    }
+
+    /* ============================================
+       SURVEY BRAND LOGO — top right, fixed overlay
+       ============================================ */
+    .survey-brand {
+      position: fixed;
+      top: 24px;
+      left: 32px;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      color: #fff;
+      pointer-events: auto;
+    }
+
+    .survey-brand-logo {
+      width: 28px;
+      height: auto;
+      display: block;
+    }
+
+    .survey-brand-name {
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      color: #ffffff;
+    }
+
+    /* ============================================
+       MOBILE RESPONSIVE — PHONES ONLY
+       ============================================ */
+    @media (max-width: 480px) {
+
+      body {
+        overflow-y: auto;
+        /* Allow scrolling on mobile if content overflows */
+      }
+
+      .survey-wrapper {
+        align-items: flex-start;
+        padding: 0 20px;
+      }
+
+      form {
+        max-width: 100%;
+      }
+
+      /* Let slides scroll if content is tall */
+      .slide {
+        overflow-y: auto;
+        padding: 30px 0;
+      }
+
+      /* Slide content */
+      .slide-content {
+        max-width: 100%;
+        padding: 0 5px;
+      }
+
+      /* Slide 1: Scale down the mockup to fit phone */
+      .mockup-container {
+        max-width: 570px;
+        height: 470px;
+        margin-top: 40px;
+        margin-bottom: -85px;
+        overflow: hidden;
+      }
+
+      .mockup-iframe {
+        width: 1200px;
+        height: 900px;
+        transform: scale(0.5);
+        transform-origin: center center;
+      }
+
+      /* Text sizes */
+      .main-text {
+        font-size: 22px !important;
+        margin-bottom: 25px;
+        line-height: 1.3;
+      }
+
+      .sub-text {
+        font-size: 13px;
+      }
+
+      .sub-text-legal {
+        font-size: 11px;
+        max-width: 100%;
+      }
+
+      /* Options */
+      .options-list {
+        max-width: 100%;
+        margin-bottom: 25px;
+        gap: 10px;
+      }
+
+      .option-label {
+        padding: 13px 15px;
+      }
+
+      .option-text {
+        font-size: 13px;
+      }
+
+      .option-letter {
+        width: 22px;
+        height: 22px;
+        font-size: 11px;
+      }
+
+      /* Inputs */
+      .input-group {
+        max-width: 100%;
+        margin-bottom: 25px;
+        gap: 15px;
+      }
+
+      .input-field {
+        padding: 14px 16px;
+        font-size: 15px;
+      }
+
+      /* Button */
+      .btn-pill {
+        padding: 11px 30px;
+        font-size: 14px;
+      }
+
+      /* Error message */
+      .error-msg {
+        font-size: 12px;
+      }
+
+      /* Brand logo on mobile */
+      .survey-brand {
+        top: 16px;
+        left: 20px;
+      }
+
+      .survey-brand-logo {
+        width: 22px;
+      }
+
+      .survey-brand-name {
+        font-size: 13px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Background Frame -->
+  <iframe src="assets/mock code/grid-background.html" class="bg-iframe" frameborder="0" scrolling="no"></iframe>
+
+  <!-- Brand Logo — fixed top-right, visible across all 8 slides -->
+  <a href="index.html#hero" class="survey-brand">
+    <img src="reliabslogo/reliabs-logo-white-75x90.png" alt="Reliabs Logo" class="survey-brand-logo">
+    <span class="survey-brand-name">RELIABS</span>
+  </a>
+
+  <div class="survey-wrapper">
+    <!-- 
+          The form targets the hidden iframe so the page never redirects.
+        -->
+    <form id="surveyForm"
+      action="https://docs.google.com/forms/d/e/1FAIpQLSf9BozXY-bASlxD4Mnr5SwYDqRxXGemHJBIG6bMwK3l5wiWrA/formResponse"
+      method="POST" target="hidden_iframe">
+
+      <!-- Slide 1: Welcome -->
+      <div class="slide active" id="slide-1">
+        <div class="slide-content">
+          <div class="mockup-container">
+            <iframe src="assets/mock code/mock3_tools.html" class="mockup-iframe" allowtransparency="true"
+              frameborder="0" scrolling="no"></iframe>
+          </div>
+          <h1 class="main-text" style="margin-bottom: 40px; font-size: 28px;">Join The Reliabs Waitlist</h1>
+          <button type="button" class="btn-pill" style="margin-bottom: 40px;" onclick="nextSlide(1)">Start</button>
+          <div class="sub-text" style="margin-top: 0;">Takes 30 sec</div>
+        </div>
+      </div>
+
+      <!-- Slide 2: MCQ 1 -->
+      <div class="slide" id="slide-2">
+        <div class="slide-content left">
+          <h2 class="main-text" style="text-align: left;">Which Reliabs feature will you actually use most?*
+          </h2>
+          <div class="options-list single-select">
+            <label class="option-label">
+              <input type="radio" name="entry.985115318" value="Weekly “What to build next” briefing">
+              <div class="option-content">
+                <span class="option-letter">A</span>
+                <span class="option-text">Weekly “What to build next” briefing</span>
+              </div>
+            </label>
+            <label class="option-label">
+              <input type="radio" name="entry.985115318" value="Ranked opportunity list with evidence panel">
+              <div class="option-content">
+                <span class="option-letter">B</span>
+                <span class="option-text">Ranked opportunity list with evidence panel</span>
+              </div>
+            </label>
+            <label class="option-label">
+              <input type="radio" name="entry.985115318" value="Auto-drafted product plans for Jira / Linear">
+              <div class="option-content">
+                <span class="option-letter">C</span>
+                <span class="option-text">Auto-drafted product plans for Jira / Linear</span>
+              </div>
+            </label>
+            <label class="option-label">
+              <input type="radio" name="entry.985115318" value="Outcome tracking for shipped bets">
+              <div class="option-content">
+                <span class="option-letter">D</span>
+                <span class="option-text">Outcome tracking for shipped bets</span>
+              </div>
+            </label>
+          </div>
+          <div id="err-slide-2" class="error-msg" style="align-self: center;">Please select an option.</div>
+          <button type="button" class="btn-pill" style="align-self: center;"
+            onclick="validateAndNext(2, 'single')">Next</button>
+        </div>
+      </div>
+
+      <!-- Slide 3: MCQ 2 (Select 3) -->
+      <div class="slide" id="slide-3">
+        <div class="slide-content left">
+          <h2 class="main-text" style="text-align: left; font-size: 24px;">Where does most of your product
+            work currently live?<br><span style="font-size: 16px; color:#a1a1a1; font-weight: 400;">Select
+              your top 3 tools or platforms*</span></h2>
+          <div class="options-list multi-select" id="tools-group">
+            <label class="option-label"><input type="checkbox" name="entry.893054265" value="Jira or Linear">
+              <div class="option-content"><span class="option-letter">A</span><span class="option-text">Jira or
+                  Linear</span></div>
+            </label>
+            <label class="option-label"><input type="checkbox" name="entry.893054265" value="Asana or Trello">
+              <div class="option-content"><span class="option-letter">B</span><span class="option-text">Asana or
+                  Trello</span></div>
+            </label>
+            <label class="option-label"><input type="checkbox" name="entry.893054265" value="Notion or Confluence">
+              <div class="option-content"><span class="option-letter">C</span><span class="option-text">Notion or
+                  Confluence</span></div>
+            </label>
+            <label class="option-label"><input type="checkbox" name="entry.893054265" value="Slack">
+              <div class="option-content"><span class="option-letter">D</span><span class="option-text">Slack</span>
+              </div>
+            </label>
+            <label class="option-label"><input type="checkbox" name="entry.893054265" value="Microsoft Teams">
+              <div class="option-content"><span class="option-letter">E</span><span class="option-text">Microsoft
+                  Teams</span></div>
+            </label>
+            <label class="option-label"><input type="checkbox" name="entry.893054265" value="Product analytics">
+              <div class="option-content"><span class="option-letter">F</span><span class="option-text">Product
+                  analytics (Mixpanel, Amplitude...)</span></div>
+            </label>
+            <label class="option-label"><input type="checkbox" name="entry.893054265" value="Support tools">
+              <div class="option-content"><span class="option-letter">G</span><span class="option-text">Support tools
+                  (Intercom, Zendesk...)</span></div>
+            </label>
+            <label class="option-label"><input type="checkbox" name="entry.893054265" value="Sales CRM">
+              <div class="option-content"><span class="option-letter">H</span><span class="option-text">Sales CRM
+                  (Salesforce, HubSpot)</span></div>
+            </label>
+          </div>
+          <div id="err-slide-3" class="error-msg" style="align-self: center;">Please select exactly 3 tools to
+            proceed.</div>
+          <button type="button" class="btn-pill" style="align-self: center;"
+            onclick="validateAndNext(3, 'exact3')">Next</button>
+        </div>
+      </div>
+
+      <!-- Slide 4: Country Input -->
+      <div class="slide" id="slide-4">
+        <div class="slide-content left">
+          <h2 class="main-text" style="text-align: left;">3<br>What is your country of residence?*</h2>
+          <div class="input-group">
+            <input type="text" class="input-field" id="input-country" name="entry.1324166891"
+              placeholder="Type your country here...">
+          </div>
+          <div id="err-slide-4" class="error-msg" style="align-self: center;">Country is required.</div>
+          <button type="button" class="btn-pill" style="align-self: center;"
+            onclick="validateAndNext(4, 'text')">Next</button>
+        </div>
+      </div>
+
+      <!-- Slide 5: Job Title Input -->
+      <div class="slide" id="slide-5">
+        <div class="slide-content left">
+          <h2 class="main-text" style="text-align: left;">What is your job title?*</h2>
+          <div class="input-group">
+            <input type="text" class="input-field" id="input-job" name="entry.1627535625"
+              placeholder="Type your job title...">
+          </div>
+          <div id="err-slide-5" class="error-msg" style="align-self: center;">Job title is required.</div>
+          <button type="button" class="btn-pill" style="align-self: center;"
+            onclick="validateAndNext(5, 'text')">Next</button>
+        </div>
+      </div>
+
+      <!-- Slide 6: Contact Inputs -->
+      <div class="slide" id="slide-6">
+        <div class="slide-content left">
+          <h2 class="main-text" style="text-align: left; margin-bottom: 5px;">Share your contact details so we
+            can stay connected*</h2>
+          <div class="sub-text-legal">By submitting this form, you agree to receive product updates and
+            occasional promotional messages from Reliabs. You can unsubscribe at any time. See our Privacy
+            Policy to learn how we handle your data.</div>
+
+          <div class="input-group" style="margin-bottom: 25px;">
+            <input type="tel" class="input-field" name="entry.119897907" placeholder="Phone number">
+            <input type="email" class="input-field" id="input-email" name="entry.306770517" placeholder="Email*">
+            <input type="text" class="input-field" name="entry.1691690187" placeholder="Company">
+          </div>
+          <div id="err-slide-6" class="error-msg" style="align-self: center;">Valid email address is required.
+          </div>
+          <button type="button" class="btn-pill" style="align-self: center;"
+            onclick="validateAndNext(6, 'email')">Next</button>
+        </div>
+      </div>
+
+      <!-- Slide 7: Consent -->
+      <div class="slide" id="slide-7">
+        <div class="slide-content left">
+          <h2 class="main-text" style="text-align: left; font-size: 24px; margin-bottom: 10px;">Do you consent
+            to us storing and using your personal data to send you an exclusive invitation when reliabs goes
+            live?</h2>
+          <div class="sub-text-legal" style="margin-bottom: 30px; font-size:14px;">You can withdraw consent at
+            any time.</div>
+
+          <div class="options-list single-select">
+            <label class="option-label">
+              <input type="radio" name="entry.499963364" value="I accept">
+              <div class="option-content">
+                <span class="option-letter">A</span>
+                <span class="option-text">I accept</span>
+              </div>
+            </label>
+            <label class="option-label">
+              <input type="radio" name="entry.499963364" value="I don't accept">
+              <div class="option-content">
+                <span class="option-letter">B</span>
+                <span class="option-text">I don't accept</span>
+              </div>
+            </label>
+          </div>
+          <div id="err-slide-7" class="error-msg" style="align-self: center;">Please select an option.</div>
+          <button type="submit" class="btn-pill" style="align-self: center;" onclick="submitForm(event)">Submit</button>
+        </div>
+      </div>
+
+      <!-- Slide 8: Thank You -->
+      <div class="slide" id="slide-8">
+        <div class="slide-content">
+          <h2 class="main-text" style="margin-bottom:10px;">Thank You!</h2>
+          <p class="sub-text" style="font-size:18px; margin-bottom: 80px;">Your waitlist spot has been
+            secured.</p>
+          <button type="button" class="btn-pill" onclick="window.location.href='index.html#hero'">Explore
+            Reliabs</button>
+        </div>
+      </div>
+
+    </form>
+  </div>
+
+  <!-- Hidden Iframe to silently capture the Google Form response page instead of navigating away -->
+  <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"
+    onload="if(submitted) { document.querySelector('#slide-7').classList.remove('active'); document.querySelector('#slide-7').classList.add('slide-up-out'); document.querySelector('#slide-8').classList.add('active'); }"></iframe>
+
+  <script>
+    let submitted = false;
+
+    // Add styling for selected radio/check boxes
+    document.querySelectorAll('.option-label input').forEach(input => {
+      input.addEventListener('change', (e) => {
+
+        // If Radio, untoggle all others
+        if (input.type === 'radio') {
+          const groupName = input.getAttribute('name');
+          document.querySelectorAll(`input[name="${groupName}"]`).forEach(r => {
+            r.closest('.option-label').classList.remove('selected');
+          });
+        }
+
+        // Toggle this specific label
+        if (input.checked) {
+          input.closest('.option-label').classList.add('selected');
+        } else {
+          input.closest('.option-label').classList.remove('selected');
+        }
+
+        // If Slide 3 Checkboxes (Enforce exactly 3 selection logic)
+        if (input.closest('#tools-group')) {
+          const toolsGroupInputs = document.querySelectorAll('#tools-group input[type="checkbox"]');
+          const checkedCount = document.querySelectorAll('#tools-group input[type="checkbox"]:checked').length;
+
+          if (checkedCount >= 3) {
+            toolsGroupInputs.forEach(chk => {
+              if (!chk.checked) chk.disabled = true; // Disable the unchecked ones
+              if (!chk.checked) chk.closest('.option-label').style.opacity = '0.4';
+            });
+          } else {
+            toolsGroupInputs.forEach(chk => {
+              chk.disabled = false;
+              chk.closest('.option-label').style.opacity = '1';
+            });
+          }
+        }
+      });
+    });
+
+    // Error message toggle
+    function showErr(slideIndex, isShow = true) {
+      const err = document.getElementById('err-slide-' + slideIndex);
+      if (err) err.style.display = isShow ? 'block' : 'none';
+    }
+
+    // Logic to validate slide and slide upwards
+    function validateAndNext(currentIndex, type) {
+      let isValid = false;
+      showErr(currentIndex, false);
+
+      if (type === 'single') {
+        const el = document.querySelector(`#slide-${currentIndex} input[type="radio"]:checked`);
+        if (el) isValid = true;
+      }
+      else if (type === 'exact3') {
+        const checked = document.querySelectorAll('#slide-3 input[type="checkbox"]:checked').length;
+        if (checked === 3) isValid = true;
+      }
+      else if (type === 'text') {
+        const textInput = document.querySelector(`#slide-${currentIndex} .input-field`);
+        if (textInput && textInput.value.trim().length > 0) isValid = true;
+      }
+      else if (type === 'email') {
+        const emailInput = document.getElementById('input-email');
+        if (emailInput && emailInput.value.includes('@') && emailInput.value.includes('.')) isValid = true;
+      }
+
+      if (isValid) {
+        nextSlide(currentIndex);
+      } else {
+        showErr(currentIndex, true);
+      }
+    }
+
+    function nextSlide(fromIndex) {
+      const current = document.getElementById('slide-' + fromIndex);
+      const next = document.getElementById('slide-' + (fromIndex + 1));
+
+      if (current && next) {
+        // Remove active and slide it UP FAST!
+        current.classList.remove('active');
+        current.classList.add('slide-up-out');
+
+        // Next slide fades in and goes up to top 0
+        next.classList.add('active');
+      }
+    }
+
+    function submitForm(event) {
+      // Validate the final slide selection
+      const accepted = document.querySelector('#slide-7 input[type="radio"]:checked');
+      if (!accepted) {
+        event.preventDefault();
+        showErr(7, true);
+        return;
+      }
+      showErr(7, false);
+
+      // This flag tells the iframe's onload event that we actually submitted
+      submitted = true;
+    }
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Feature Mock</title>
+  <style>
+
+    :root {
+      --grid-line-color: #030303;
+      --grid-size:       24px;
+      --grid-line-width: 0.6px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { width: 100%; height: 100%; }
+
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      overflow: hidden;
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', sans-serif;
+    }
+
+
+
+    /* ══════════════════════════════════
+       SCENE
+       Left panel  : 190px wide
+       Right panel : 280px wide
+       Right panel's LEFT edge = left panel LEFT edge + 190px - 20px
+                                = overlaps last 20px of left panel
+       Total scene width = 190 - 20 + 280 = 450px
+    ══════════════════════════════════ */
+    .scene {
+      position: relative;
+      z-index: 2;
+      width: 450px;
+      height: 520px;
+    }
+
+    /* ══════════════════════════════════
+       PANEL BASE
+       Very transparent — grid bleeds through clearly
+    ══════════════════════════════════ */
+    .panel {
+      position: absolute;
+      /* low opacity + no solid fill = grid fully visible through */
+      background: rgba(255, 255, 255, 0.04);
+      border: 0.75px solid rgba(255, 255, 255, 0.1);
+      border-radius: 22px;
+      /* no backdrop-filter — that was killing transparency */
+    }
+
+    /* ══════════════════════════════════
+       LEFT PANEL
+       Full width 190px, sits fully on left
+       z-index LOWER so right panel covers its last 20px
+    ══════════════════════════════════ */
+    .panel-left {
+      left: 0;
+      top: 70px;
+      width: 190px;
+      height: 270px;
+      padding: 22px 20px;
+      z-index: 3;
+    }
+
+    .small-head {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      color: rgba(255, 255, 255, 0.8);
+      margin-bottom: 16px;
+    }
+
+    .row-sm {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    .row-sm:last-child { margin-bottom: 0; }
+
+    .cb-sm {
+      width: 30px; height: 30px;
+      border-radius: 8px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .cb-on-sm {
+      background: #fff;
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,0.3),
+        0 0 12px 4px rgba(255,255,255,0.3),
+        0 0 26px 8px rgba(255,255,255,0.1);
+    }
+    .cb-off-sm {
+      background: rgba(255,255,255,0.06);
+      border: 0.75px solid rgba(255,255,255,0.12);
+    }
+    .chk-sm {
+      width: 14px; height: 14px;
+      stroke: #111;
+      fill: none;
+      stroke-width: 3;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .lbl-sm       { font-size: 14px; color: rgba(255,255,255,0.72); }
+    .lbl-sm.dim   { color: rgba(255,255,255,0.32); }
+
+    /* ══════════════════════════════════
+       RIGHT PANEL
+       Starts at left: 190px - 20px = 170px
+       So it overlaps the RIGHT 20px of left panel
+       z-index HIGHER so it sits on top
+    ══════════════════════════════════ */
+    .panel-right {
+      left: 170px;   /* = 190px left-panel-width - 20px overlap */
+      top: 0;
+      width: 280px;
+      height: 100%;
+      padding: 28px 26px 0;
+      z-index: 4;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* subtle fade at the bottom */
+    .panel-right::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 80px;
+      background: linear-gradient(to bottom, transparent, rgba(10,10,10,0.55));
+      border-radius: 0 0 22px 22px;
+      pointer-events: none;
+    }
+
+    /* section heading: FILTER BY / SORT BY */
+    .sec-head {
+      display: flex;
+      align-items: baseline;
+      gap: 7px;
+      margin-bottom: 18px;
+    }
+    .hd-bold  { font-size: 23px; font-weight: 700; letter-spacing: 0.04em; color: rgba(255,255,255,0.90); }
+    .hd-light { font-size: 23px; font-weight: 400; letter-spacing: 0.04em; color: rgba(255,255,255,0.30); }
+
+    .row {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 14px;
+    }
+    .row:last-child { margin-bottom: 0; }
+
+    .cb {
+      width: 42px; height: 42px;
+      border-radius: 11px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .cb-on {
+      background: #fff;
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,0.3),
+        0 0 16px 5px rgba(255,255,255,0.32),
+        0 0 36px 12px rgba(255,255,255,0.12);
+    }
+    .cb-off {
+      background: rgba(255,255,255,0.06);
+      border: 0.75px solid rgba(255,255,255,0.12);
+    }
+    .chk {
+      width: 19px; height: 19px;
+      stroke: #111;
+      fill: none;
+      stroke-width: 2.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .lbl       { font-size: 19px; font-weight: 400; color: rgba(255,255,255,0.72); }
+    .lbl.dim   { color: rgba(255,255,255,0.30); }
+
+    .divider {
+      width: 100%;
+      height: 0.75px;
+      background: rgba(255,255,255,0.07);
+      margin: 16px 0;
+    }
+
+  </style>
+</head>
+<body>
+
+
+
+  <div class="scene">
+
+    <!-- LEFT PANEL — full width, right 20px covered by right panel -->
+    <div class="panel panel-left">
+      <div class="small-head">SEGMENTS</div>
+
+      <div class="row-sm">
+        <div class="cb-sm cb-on-sm">
+          <svg class="chk-sm" viewBox="0 0 16 16"><polyline points="3,8 6.5,12 13,4"/></svg>
+        </div>
+        <span class="lbl-sm">Enterprise</span>
+      </div>
+
+      <div class="row-sm">
+        <div class="cb-sm cb-off-sm"></div>
+        <span class="lbl-sm dim">SMB</span>
+      </div>
+
+      <div class="row-sm">
+        <div class="cb-sm cb-off-sm"></div>
+        <span class="lbl-sm dim">Startup</span>
+      </div>
+    </div>
+
+    <!-- RIGHT PANEL — overlaps last 20px of left panel -->
+    <div class="panel panel-right">
+
+      <div class="sec-head">
+        <span class="hd-bold">FILTER</span>
+        <span class="hd-light">BY</span>
+      </div>
+
+      <div class="row">
+        <div class="cb cb-off"></div>
+        <span class="lbl dim">Impact</span>
+      </div>
+
+      <div class="row">
+        <div class="cb cb-on">
+          <svg class="chk" viewBox="0 0 22 22"><polyline points="4,11 9,16 18,6"/></svg>
+        </div>
+        <span class="lbl">Team</span>
+      </div>
+
+      <div class="row">
+        <div class="cb cb-off"></div>
+        <span class="lbl dim">Segment</span>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="sec-head">
+        <span class="hd-bold">SORT</span>
+        <span class="hd-light">BY</span>
+      </div>
+
+      <div class="row">
+        <div class="cb cb-on">
+          <svg class="chk" viewBox="0 0 22 22"><polyline points="4,11 9,16 18,6"/></svg>
+        </div>
+        <span class="lbl">Priority</span>
+      </div>
+
+      <div class="row">
+        <div class="cb cb-off"></div>
+        <span class="lbl dim">Most Recent</span>
+      </div>
+
+    </div>
+
+  </div>
+
+</body>
+</html>

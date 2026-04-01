@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Migrate from Aha.io to Reliabs — Complete Migration Guide</title>
+  <meta name="description" content="Moving from Aha.io to Reliabs? This step-by-step guide shows you how to export your roadmaps, goals, and features — and reconnect your integrations in one smooth migration session.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://reliabs.app/integrations/migrate-from-aha">
+  <meta property="og:title" content="Migrate from Aha.io to Reliabs — Complete Migration Guide">
+  <meta property="og:url" content="https://reliabs.app/integrations/migrate-from-aha">
+  <meta property="og:type" content="website">
+  <link rel="icon" type="image/x-icon" href="../reliabslogo/favicon.ico">
+  <link rel="stylesheet" href="../seo-styles.css">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"HowTo","name":"How to Migrate from Aha.io to Reliabs","description":"Step-by-step guide to migrating your product roadmaps, goals, features, and integrations from Aha.io to Reliabs.","step":[{"@type":"HowToStep","name":"Export your Aha.io data","text":"Export roadmaps, features, goals, and ideas from Aha.io in CSV format."},{"@type":"HowToStep","name":"Set up your Reliabs workspace","text":"Create your Reliabs workspace and configure product areas matching your Aha.io structure."},{"@type":"HowToStep","name":"Import into Reliabs","text":"Use the Reliabs migration tool to import Aha.io features and goals."},{"@type":"HowToStep","name":"Reconnect integrations","text":"Reconnect Jira, Salesforce, Slack, and other tools to your new Reliabs workspace."}]}</script>
+</head>
+<body>
+<nav class="seo-nav"><div class="seo-nav-inner"><a href="../index.html" class="seo-nav-brand"><img src="../reliabslogo/reliabs-logo-64px.png" alt="Reliabs Logo"> RELIABS</a><ul class="seo-nav-links"><li><a href="../index.html#features">Features</a></li><li><a href="index.html">Integrations</a></li><li><a href="../blog/">Blog</a></li></ul><a href="../survey1.html" class="seo-nav-cta" target="_blank">Get Early Access</a></div></nav>
+
+<section class="page-hero">
+  <div class="container">
+    <nav class="breadcrumb"><a href="../index.html">Home</a><span class="breadcrumb-sep">/</span><a href="index.html">Integrations</a><span class="breadcrumb-sep">/</span><span>Migrate from Aha.io</span></nav>
+    <div class="hero-pill"><span class="hero-pill-dot"></span>Migration Guide</div>
+    <h1>Migrating from <span class="grad-text">Aha.io</span> to Reliabs</h1>
+    <p>Aha.io is robust for strategy documentation. Reliabs is built for intelligence — synthesizing live signals from your entire tool stack, auto-drafting product plans, and tracking which bets actually paid off. Here is how to make the move.</p>
+    <div class="hero-answer-box">
+      <div class="hero-answer-label">What You Can Bring Over</div>
+      <p>Your Aha.io roadmaps, features, goals, initiatives, ideas, and all existing integration connections can be migrated to Reliabs. The process is structured and guided — most teams complete it in one session without data loss.</p>
+    </div>
+    <a href="../survey1.html" class="btn-primary" target="_blank">Join the Waitlist &amp; Request Migration Help</a>
+  </div>
+</section>
+
+<!-- Why Teams Switch -->
+<section class="section">
+  <div class="container">
+    <div class="section-tag">Why Teams Switch</div>
+    <h2 class="section-heading">Why Product Teams Move from Aha.io to Reliabs</h2>
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-icon" style="font-size:1.1rem;font-weight:700;color:var(--color-accent)">01</div>
+        <h3>Live Signal Intelligence</h3>
+        <p>Aha.io gives you a place to document strategy. Reliabs gives you a place where strategy is informed by live signals — Mixpanel retention, Intercom feedback, Salesforce deal blockers — automatically synthesized into ranked opportunities.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon" style="font-size:1.1rem;font-weight:700;color:var(--color-accent)">02</div>
+        <h3>Lighter, Faster Workflow</h3>
+        <p>Aha.io is comprehensive — sometimes overwhelmingly so. Reliabs focuses on the highest-leverage workflow: signals to decision to outcome. Less configuration, more intelligence.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon" style="font-size:1.1rem;font-weight:700;color:var(--color-accent)">03</div>
+        <h3>Auto-Drafted Plans</h3>
+        <p>Reliabs learns how your team makes decisions and drafts product briefs automatically when new signals appear. Aha.io documents your decisions. Reliabs accelerates making them.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon" style="font-size:1.1rem;font-weight:700;color:var(--color-accent)">04</div>
+        <h3>Integration-First Architecture</h3>
+        <p>Reliabs is built around deep, bidirectional integrations — not just one-way pushes. Jira, Mixpanel, Amplitude, Salesforce, and Slack all contribute live signals, not just receive roadmap updates.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- What Moves Over -->
+<section class="section" style="background:var(--color-surface);border-top:1px solid var(--color-border);border-bottom:1px solid var(--color-border);">
+  <div class="container">
+    <div class="section-tag">Data Portability</div>
+    <h2 class="section-heading">What You Can Migrate from Aha.io</h2>
+    <div class="compare-table-wrap" style="margin-top:32px;">
+      <table class="compare-table">
+        <thead><tr><th>Data Type</th><th>Migrates to Reliabs?</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td>Roadmap features &amp; releases</td><td class="badge-yes">&#10003; Yes</td><td>Imported as Reliabs product bets with release timing preserved</td></tr>
+          <tr><td>Goals and initiatives</td><td class="badge-yes">&#10003; Yes</td><td>Mapped to Reliabs roadmap objectives and OKR layer</td></tr>
+          <tr><td>Ideas portal submissions</td><td class="badge-yes">&#10003; Yes</td><td>Re-ingested as product signals and clustered for patterns</td></tr>
+          <tr><td>Feature statuses</td><td class="badge-yes">&#10003; Yes</td><td>Mapped to equivalent Reliabs delivery stages</td></tr>
+          <tr><td>Jira integration</td><td class="badge-yes">&#10003; Yes</td><td>Reconnected via Reliabs Jira integration — all existing links preserved</td></tr>
+          <tr><td>Salesforce integration</td><td class="badge-yes">&#10003; Yes</td><td>Reconnected; deal signal history re-indexed for Reliabs</td></tr>
+          <tr><td>Slack integration</td><td class="badge-yes">&#10003; Yes</td><td>Reliabs Slack app installed and configured for new workspace</td></tr>
+          <tr><td>Team members</td><td class="badge-yes">&#10003; Yes</td><td>Invited via email with role mapping from Aha.io permissions</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- Migration Steps -->
+<section class="section">
+  <div class="container">
+    <div class="section-tag">Step-by-Step Guide</div>
+    <h2 class="section-heading">How to Migrate from Aha.io to Reliabs</h2>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-body"><h3>Export Your Aha.io Data</h3><p>In Aha.io, go to Account Settings &rarr; Export. Export your Features list, Goals, Initiatives, and Ideas in CSV format. Aha.io provides granular export controls — export each section separately for the cleanest import experience.</p></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-body"><h3>Create Your Reliabs Workspace</h3><p>Join the Reliabs waitlist with migration priority flagged. Once access is granted, create your workspace and configure product areas to mirror your Aha.io product line structure.</p></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-body"><h3>Import via Reliabs Migration Tool</h3><p>In Reliabs Settings &rarr; Import, select "Migrate from Aha.io." Upload your exported CSV files. Reliabs maps your Aha.io Features to product bets and Goals to roadmap objectives — preserving hierarchy and delivery status.</p></div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-body"><h3>Reconnect Your Integrations</h3><p>Reconnect each integration in Reliabs Settings &rarr; Integrations. Start with Jira and Salesforce as these carry the most structural dependencies. Reliabs re-indexes existing data from each connected tool for your new workspace.</p></div></div>
+      <div class="step"><div class="step-num">5</div><div class="step-body"><h3>Invite Your Team and Set Roles</h3><p>Invite team members via email from Settings &rarr; Team. Reliabs roles (PM, Viewer, Admin) map intuitively from Aha.io's permission model. All team members keep their existing integrations access.</p></div></div>
+      <div class="step"><div class="step-num">6</div><div class="step-body"><h3>Run Your First Intelligence Session</h3><p>With integrations live, trigger your first Reliabs weekly briefing. The AI synthesizes signals from all connected tools and delivers your first ranked list of product opportunities — the Reliabs intelligence layer working from day one.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- Comparison Table -->
+<section class="section" style="background:var(--color-surface);border-top:1px solid var(--color-border);border-bottom:1px solid var(--color-border);">
+  <div class="container">
+    <div class="section-tag">Aha.io vs. Reliabs</div>
+    <h2 class="section-heading">Feature Comparison</h2>
+    <div class="compare-table-wrap" style="margin-top:32px;">
+      <table class="compare-table">
+        <thead><tr><th>Feature</th><th>Aha.io</th><th>Reliabs</th></tr></thead>
+        <tbody>
+          <tr><td>Roadmap planning &amp; documentation</td><td class="badge-yes">&#10003;</td><td class="badge-yes">&#10003;</td></tr>
+          <tr><td>Goal and initiative tracking</td><td class="badge-yes">&#10003;</td><td class="badge-yes">&#10003;</td></tr>
+          <tr><td>Ideas portal</td><td class="badge-yes">&#10003;</td><td class="badge-yes">&#10003;</td></tr>
+          <tr><td>Jira bidirectional sync</td><td class="badge-part">Partial</td><td class="badge-yes">&#10003; Full</td></tr>
+          <tr><td>Auto-drafted product plans</td><td class="badge-no">&#10007;</td><td class="badge-yes">&#10003;</td></tr>
+          <tr><td>Live analytics signal ingestion</td><td class="badge-no">&#10007;</td><td class="badge-yes">&#10003;</td></tr>
+          <tr><td>CRM revenue signal ingestion</td><td class="badge-part">Limited</td><td class="badge-yes">&#10003;</td></tr>
+          <tr><td>Outcome tracking post-launch</td><td class="badge-no">&#10007;</td><td class="badge-yes">&#10003;</td></tr>
+          <tr><td>Universal cross-tool search</td><td class="badge-no">&#10007;</td><td class="badge-yes">&#10003;</td></tr>
+          <tr><td>Weekly automated product briefing</td><td class="badge-no">&#10007;</td><td class="badge-yes">&#10003;</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- FAQs -->
+<section class="section">
+  <div class="container">
+    <div class="section-tag">FAQs</div>
+    <h2 class="section-heading">Migration FAQs</h2>
+    <div class="faq-list" style="max-width:720px;margin-top:32px;">
+      <div class="faq-item-seo"><div class="faq-q">How long does migration from Aha.io take?<div class="faq-q-icon">+</div></div><div class="faq-a"><p>Most teams complete the full migration in 3 to 5 hours. Aha.io's export format is well-structured, which makes import mapping straightforward. A Reliabs team member is available to assist during your first migration session.</p></div></div>
+      <div class="faq-item-seo"><div class="faq-q">Will my Aha.io Ideas portal data be lost?<div class="faq-q-icon">+</div></div><div class="faq-a"><p>No. Aha.io Ideas can be exported and imported into Reliabs where they are re-ingested as product signals. Reliabs clusters similar ideas and surfaces the most frequent themes as ranked product opportunities with your original ideas preserved as evidence.</p></div></div>
+      <div class="faq-item-seo"><div class="faq-q">What happens to my Aha.io Jira integration?<div class="faq-q-icon">+</div></div><div class="faq-a"><p>Your Jira data remains intact in Jira. During migration, you reconnect Jira to Reliabs — your existing epics, issues, and links re-sync to the new workspace. The Aha.io Jira connection can be removed after you confirm the Reliabs connection is working correctly.</p></div></div>
+      <div class="faq-item-seo"><div class="faq-q">Can I run Aha.io and Reliabs in parallel during transition?<div class="faq-q-icon">+</div></div><div class="faq-a"><p>Yes. We recommend a 2 to 4 week parallel period. Use Reliabs for new bets and intelligence sessions while Aha.io handles existing workflow. Once your team adjusts, complete the cutover and cancel your Aha.io subscription.</p></div></div>
+      <div class="faq-item-seo"><div class="faq-q">Does Reliabs have Aha.io's Strategy Map equivalent?<div class="faq-q-icon">+</div></div><div class="faq-a"><p>Reliabs handles strategy through its OKR and objectives layer, which maps to Aha.io's Goals and Initiatives. The visual strategy map format is not a direct equivalent in Reliabs — Reliabs prioritizes intelligence and decision speed over documentation-heavy strategy visualization.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section-sm"><div class="container"><div class="cta-banner"><h2>Ready to move from Aha.io to Reliabs?</h2><p>Join the waitlist and flag your migration — we will prioritize your onboarding and guide you through the switch.</p><div class="cta-btn-group"><a href="../survey1.html" class="btn-primary" target="_blank">Join the Waitlist</a><a href="index.html" class="btn-secondary">View all integrations</a></div></div></div></section>
+<footer class="seo-footer"><div class="seo-footer-inner"><a href="../index.html" class="seo-footer-brand"><img src="../reliabslogo/reliabs-logo-64px.png" alt="Reliabs Logo"> RELIABS</a><nav class="seo-footer-links"><a href="../index.html">Home</a><a href="index.html">Integrations</a><a href="../blog/">Blog</a><a href="../survey1.html" target="_blank">Get Early Access</a></nav><p class="seo-footer-copy">&#169; 2026 Reliabs. All rights reserved.</p></div></footer>
+<script>document.querySelectorAll('.faq-item-seo').forEach(item=>{item.addEventListener('click',()=>{const o=item.classList.contains('open');document.querySelectorAll('.faq-item-seo').forEach(i=>i.classList.remove('open'));if(!o)item.classList.add('open');});});</script>
+</body></html>

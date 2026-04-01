@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<title>V3 — Contextual Assistant</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: #ffffff;
+    width: 450px;
+    height: 360px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .scene {
+    width: 420px;
+    height: 320px;
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+  }
+
+  /* ── ALERT BANNER ── */
+  .alert {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: linear-gradient(135deg, #fef2f2, #fff5f5);
+    border: 1px solid #fecaca;
+    border-radius: 10px;
+    padding: 9px 14px;
+    opacity: 0;
+    animation: fadeUp 0.4s 0.1s ease forwards;
+  }
+
+  .pulse {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: #ef4444;
+    flex-shrink: 0;
+    position: relative;
+  }
+  .pulse::before {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    background: rgba(239,68,68,0.2);
+    animation: ring 1.4s 0.5s infinite;
+  }
+  @keyframes ring {
+    0% { transform:scale(0.7); opacity:1; }
+    100% { transform:scale(2.5); opacity:0; }
+  }
+
+  .alert-text { font-size: 11.5px; font-weight: 600; color: #b91c1c; }
+  .alert-text span { font-weight: 400; color: #ef4444; }
+
+  .alert-tag {
+    margin-left: auto;
+    font-size: 10px; font-weight: 700;
+    color: #ef4444;
+    background: rgba(239,68,68,0.1);
+    border: 1px solid #fecaca;
+    border-radius: 99px;
+    padding: 2px 8px;
+    white-space: nowrap;
+  }
+
+  /* ── CENTRAL OPPORTUNITY CARD ── */
+  .central-card {
+    border: 1.5px solid #2563eb;
+    border-radius: 12px;
+    padding: 11px 14px;
+    background: linear-gradient(135deg, #fafbff, #f0f4ff);
+    box-shadow: 0 0 0 4px rgba(37,99,235,0.06), 0 2px 8px rgba(37,99,235,0.1);
+    opacity: 0;
+    animation: fadeUp 0.45s 0.6s ease forwards;
+  }
+
+  .central-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 6px;
+  }
+
+  .central-label {
+    font-size: 9.5px;
+    font-weight: 700;
+    color: #2563eb;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .central-score {
+    font-size: 10px;
+    font-weight: 700;
+    color: #0d9488;
+    background: #f0fdfa;
+    border: 1px solid #99f6e4;
+    border-radius: 5px;
+    padding: 2px 7px;
+  }
+
+  .central-title {
+    font-size: 12.5px;
+    font-weight: 700;
+    color: #0f172a;
+    letter-spacing: -0.02em;
+    line-height: 1.35;
+    margin-bottom: 7px;
+  }
+
+  .central-tags {
+    display: flex;
+    gap: 5px;
+  }
+
+  .ctag {
+    font-size: 10px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 5px;
+  }
+  .ct-blue { background: #eff6ff; color: #2563eb; border: 1px solid #bfdbfe; }
+  .ct-red  { background: #fef2f2; color: #dc2626; border: 1px solid #fecaca; }
+
+  /* ── SVG CONNECTOR LINES ── */
+  .conn-wrap {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .conn-svg {
+    position: absolute;
+    top: -14px; left: 0;
+    width: 100%; height: 16px;
+    pointer-events: none;
+    overflow: visible;
+  }
+
+  .cline {
+    stroke: #93c5fd;
+    stroke-width: 1.2;
+    stroke-dasharray: 5 3;
+    fill: none;
+    opacity: 0;
+    stroke-dashoffset: 0;
+  }
+
+  .cl1 { animation: appear 0.35s 1.5s ease forwards; }
+  .cl2 { animation: appear 0.35s 1.7s ease forwards; }
+  .cl3 { animation: appear 0.35s 1.9s ease forwards; }
+
+  @keyframes appear { to { opacity: 1; } }
+
+  /* ── EVIDENCE CARDS GRID ── */
+  .evidence-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 7px;
+  }
+
+  .ev-card {
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 10px 11px;
+    opacity: 0;
+  }
+
+  .ec1 { animation: fadeUp 0.35s 1.35s ease forwards; }
+  .ec2 { animation: fadeUp 0.35s 1.6s ease forwards; }
+  .ec3 { animation: fadeUp 0.35s 1.85s ease forwards; }
+
+  .ev-source {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 6px;
+  }
+
+  .ev-logo {
+    width: 18px; height: 18px;
+    border-radius: 5px;
+    flex-shrink: 0;
+    overflow: hidden;
+    border: 0.5px solid rgba(0,0,0,0.08);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .ev-logo svg { display: block; }
+
+  .ev-src-name {
+    font-size: 9.5px;
+    color: #94a3b8;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .ev-text {
+    font-size: 10.5px;
+    font-weight: 500;
+    color: #334155;
+    line-height: 1.4;
+    margin-bottom: 5px;
+  }
+
+  .ev-badge {
+    font-size: 9.5px;
+    font-weight: 600;
+    padding: 1.5px 6px;
+    border-radius: 4px;
+  }
+  .eb-purple { background: #f5f3ff; color: #7c3aed; }
+  .eb-green  { background: #f0fdfa; color: #0d9488; }
+  .eb-blue   { background: #eff6ff; color: #2563eb; }
+
+  /* ── SYNTHESIS ROW ── */
+  .synthesis {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    background: linear-gradient(135deg, #f0fdfa, #e6fffa);
+    border: 1px solid #99f6e4;
+    border-radius: 10px;
+    padding: 10px 14px;
+    opacity: 0;
+    animation: fadeUp 0.4s 2.35s ease forwards;
+  }
+
+  .synth-icon {
+    width: 24px; height: 24px;
+    border-radius: 7px;
+    background: #0d9488;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px;
+    flex-shrink: 0;
+    color: #fff;
+  }
+
+  .synth-text {
+    font-size: 11px;
+    color: #134e4a;
+    line-height: 1.5;
+  }
+  .synth-text strong { font-weight: 700; color: #0d9488; }
+
+  @keyframes fadeUp {
+    from { opacity:0; transform:translateY(6px); }
+    to { opacity:1; transform:translateY(0); }
+  }
+
+  .logo-box {
+    background: #ffffff;
+    border: 0.75px solid rgba(0,0,0,0.1);
+    border-radius: 5px;
+    width: 22px; height: 22px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    overflow: hidden;
+  }
+  .logo-box img { width: 18px; height: 18px; object-fit: contain; mix-blend-mode: multiply; display: block; }
+</style>
+</head>
+<body>
+<div class="scene">
+
+  <!-- Alert -->
+  <div class="alert">
+    <div class="pulse"></div>
+    <div class="alert-text">New signal: Enterprise churn <span>+18% in last 14 days</span></div>
+    <div class="alert-tag">🔴 Connecting now</div>
+  </div>
+
+  <!-- Central card -->
+  <div class="central-card">
+    <div class="central-top">
+      <div class="central-label">Opportunity detected</div>
+      <div class="central-score">Score 91 · ↑ Rising</div>
+    </div>
+    <div class="central-title">Enterprise churn up 18% — Analytics module, last 14 days</div>
+    <div class="central-tags">
+      <div class="ctag ct-red">$284k ARR at risk</div>
+      <div class="ctag ct-blue">3 signals connected</div>
+    </div>
+  </div>
+
+  <!-- Connectors + evidence cards -->
+  <div class="conn-wrap">
+    <svg class="conn-svg" viewBox="0 0 450 16" preserveAspectRatio="none">
+      <path class="cline cl1" d="M225 0 Q 75 0 73 14"/>
+      <path class="cline cl2" d="M225 0 L 225 14"/>
+      <path class="cline cl3" d="M225 0 Q 378 0 376 14"/>
+    </svg>
+
+    <div class="evidence-grid">
+
+      <div class="ev-card ec1">
+        <div class="ev-source">
+          <div class="ev-logo" style="background:#fff;border:0.75px solid rgba(0,0,0,0.1);border-radius:5px;width:20px;height:20px;display:flex;align-items:center;justify-content:center;overflow:hidden;"><img src="../pictures/logos/mixpane_trans.png" style="width:16px;height:16px;object-fit:contain;mix-blend-mode:multiply;display:block;"/></div>
+          <span class="ev-src-name">Mixpanel</span>
+        </div>
+        <div class="ev-text">"Dashboard" session drop — 38% abandon rate</div>
+        <span class="ev-badge eb-purple">Funnel</span>
+      </div>
+
+      <div class="ev-card ec2">
+        <div class="ev-source">
+          <div class="ev-logo" style="background:#fff;border:0.75px solid rgba(0,0,0,0.1);border-radius:5px;width:20px;height:20px;display:flex;align-items:center;justify-content:center;overflow:hidden;"><img src="../pictures/logos/intercom.png" style="width:16px;height:16px;object-fit:contain;mix-blend-mode:multiply;display:block;"/></div>
+          <span class="ev-src-name">Jira</span>
+        </div>
+        <div class="ev-text">Epic DB-187 · Analytics perf fix in progress</div>
+        <span class="ev-badge eb-green">In progress</span>
+      </div>
+
+      <div class="ev-card ec3">
+        <div class="ev-source">
+          <div class="ev-logo" style="background:#fff;border:0.75px solid rgba(0,0,0,0.1);border-radius:5px;width:20px;height:20px;display:flex;align-items:center;justify-content:center;overflow:hidden;"><img src="../pictures/logos/jira_trans.png" style="width:16px;height:16px;object-fit:contain;mix-blend-mode:multiply;display:block;"/></div>
+          <span class="ev-src-name">Zendesk</span>
+        </div>
+        <div class="ev-text">21 tickets — report timeouts, Enterprise tier</div>
+        <span class="ev-badge eb-blue">Support</span>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Synthesis -->
+  <div class="synthesis">
+    <div class="synth-icon">✦</div>
+    <div class="synth-text">
+      <strong>3 sources connected automatically.</strong> Sessions, tickets, and a live epic all point to the same root cause — before you open another tool.
+    </div>
+  </div>
+
+</div>
+
+<script>setTimeout(() => location.reload(), 5800);</script>
+</body>
+</html>

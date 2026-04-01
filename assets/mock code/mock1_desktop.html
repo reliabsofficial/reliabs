@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mock 1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    background: transparent;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  :root {
+    --blue: #4F8EF7;
+    --blue-soft: #6BA3FA;
+    --blue-dim: rgba(79,142,247,0.15);
+    --white: #FFFFFF;
+    --white-70: rgba(255,255,255,0.7);
+    --white-40: rgba(255,255,255,0.4);
+    --white-08: rgba(255,255,255,0.08);
+    --grid-line: rgba(255,255,255,0.055);
+  }
+
+  .mock {
+    width: 480px;
+    border-radius: 14px;
+    background: rgba(22, 22, 28, 0.42);
+    backdrop-filter: blur(28px) saturate(1.6);
+    -webkit-backdrop-filter: blur(28px) saturate(1.6);
+    border: 1px solid rgba(255,255,255,0.10);
+    box-shadow:
+      0 2px 0 rgba(255,255,255,0.06) inset,
+      0 32px 80px rgba(0,0,0,0.4),
+      0 0 0 0.5px rgba(0,0,0,0.3);
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* shimmer */
+  .mock::after {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 55%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.025), transparent);
+    animation: shimmer 6s ease-in-out infinite;
+    pointer-events: none;
+  }
+  @keyframes shimmer {
+    0% { left: -100%; }
+    45%, 100% { left: 140%; }
+  }
+
+  .titlebar {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 14px 16px 12px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .dot { width: 11px; height: 11px; border-radius: 50%; }
+  .dot.r { background: #FF5F57; }
+  .dot.a { background: #FFBD2E; }
+  .dot.g { background: #28C840; }
+
+  .body {
+    padding: 28px 32px 26px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .greeting {
+    font-size: 20px;
+    font-weight: 400;
+    color: var(--white);
+    line-height: 1.4;
+  }
+  .greeting .accent { color: var(--blue-soft); }
+  .greeting .sub {
+    display: block;
+    font-size: 13px;
+    color: var(--white-40);
+    font-weight: 300;
+    margin-top: 2px;
+  }
+
+  .metrics {
+    display: flex;
+    gap: 10px;
+  }
+  .chip {
+    flex: 1;
+    background: rgba(79,142,247,0.08);
+    border: 1px solid rgba(79,142,247,0.15);
+    border-radius: 8px;
+    padding: 9px 11px;
+  }
+  .chip-val { font-size: 17px; font-weight: 500; color: var(--blue-soft); line-height: 1; }
+  .chip-lbl { font-size: 10px; color: var(--white-40); margin-top: 3px; font-weight: 300; }
+
+  .cards { display: flex; flex-direction: column; gap: 6px; }
+
+  .card {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 8px;
+    padding: 8px 12px;
+  }
+  .rank { font-size: 11px; font-weight: 500; color: var(--blue-soft); width: 16px; flex-shrink: 0; opacity: 0.8; }
+  .info { flex: 1; min-width: 0; }
+  .card-title { font-size: 11.5px; color: var(--white-70); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .card-meta { font-size: 10px; color: var(--white-40); margin-top: 1px; }
+  .badge { font-size: 10px; padding: 2px 8px; border-radius: 999px; font-weight: 500; flex-shrink: 0; }
+  .badge.high { background: rgba(79,142,247,0.18); color: var(--blue-soft); }
+  .badge.med  { background: rgba(255,255,255,0.07); color: var(--white-40); }
+
+  .btn-row { display: flex; gap: 9px; align-items: center; }
+  .pill {
+    display: flex; align-items: center; gap: 6px;
+    padding: 8px 16px; border-radius: 999px;
+    font-size: 12.5px; font-weight: 400; cursor: default;
+  }
+  .pill.primary { background: var(--white); color: #111; }
+  .pill.ghost {
+    background: var(--white-08); color: var(--white-40);
+    border: 1px solid rgba(255,255,255,0.10);
+  }
+</style>
+</head>
+<body>
+<div class="mock">
+  <div class="titlebar">
+    <div class="dot r"></div>
+    <div class="dot a"></div>
+    <div class="dot g"></div>
+  </div>
+  <div class="body">
+
+    <div class="greeting">
+      Good Morning, <span class="accent">Marcus.</span>
+      <span class="sub">This week's briefing is ready — 3 critical bets.</span>
+    </div>
+
+    <div class="metrics">
+      <div class="chip">
+        <div class="chip-val">7</div>
+        <div class="chip-lbl">Opportunities</div>
+      </div>
+      <div class="chip">
+        <div class="chip-val">$84k</div>
+        <div class="chip-lbl">ARR at risk</div>
+      </div>
+      <div class="chip">
+        <div class="chip-val">+12%</div>
+        <div class="chip-lbl">Retention impact</div>
+      </div>
+    </div>
+
+    <div class="cards">
+      <div class="card">
+        <div class="rank">#1</div>
+        <div class="info">
+          <div class="card-title">Onboarding drop-off at step 3</div>
+          <div class="card-meta">38 users · Intercom + Mixpanel</div>
+        </div>
+        <div class="badge high">High</div>
+      </div>
+      <div class="card">
+        <div class="rank">#2</div>
+        <div class="info">
+          <div class="card-title">Export timeout for large datasets</div>
+          <div class="card-meta">12 accounts · $44k ARR</div>
+        </div>
+        <div class="badge high">High</div>
+      </div>
+      <div class="card">
+        <div class="rank">#3</div>
+        <div class="info">
+          <div class="card-title">Notification fatigue in mobile</div>
+          <div class="card-meta">Trending ↑ · NPS feedback</div>
+        </div>
+        <div class="badge med">Med</div>
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <div class="pill primary">Today's briefing &nbsp;›</div>
+      <div class="pill ghost">View all bets</div>
+    </div>
+
+  </div>
+</div>
+</body>
+</html>

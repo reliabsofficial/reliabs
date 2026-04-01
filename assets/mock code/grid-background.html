@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Grid Background</title>
+  <style>
+    /* ═══════════════════════════════════════════════════
+       EDITABLE TOKENS — change anything here
+       ═══════════════════════════════════════════════════ */
+    :root {
+
+      /* ── GRADIENT BASE COLORS ──
+         Top band colours (mirrored at bottom)            */
+      --c-edge: #121212;
+      /* very top  0 → stop-1      */
+      --c-mid1: #121212;
+      /* stop-1  → stop-2          */
+      --c-mid2: #121212;
+      /* stop-2  → stop-3          */
+      --c-dark: #121212;
+      /* centre of page (darkest)  */
+
+      /* ── GRADIENT STOP POSITIONS (px from top/bottom) ─ */
+      --stop-1: 50px;
+      /* end of edge band          */
+      --stop-2: 100px;
+      /* end of mid-1 band         */
+      --stop-3: 200px;
+      /* end of mid-2 band, start of slow fade to dark */
+
+      /* ── GRID ─────────────────────────────────────── */
+      --grid-line-color: #030303;
+      /* grid line base colour */
+      --grid-opacity: 1;
+      /* 0.0 – 1.0             */
+      --grid-size: 12px;
+      /* cell size             */
+      --grid-line-width: 0.6px;
+      /* line thickness        */
+    }
+
+
+    /* ═══════════════════════════════════════════════════
+       RESET
+       ═══════════════════════════════════════════════════ */
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+    }
+
+    body {
+      overflow: hidden;
+    }
+
+    /* pure background — no scrollbar */
+
+
+    /* ═══════════════════════════════════════════════════
+       LAYER 1 — GRADIENT
+       Fixed, covers full viewport, never scrolls
+       ═══════════════════════════════════════════════════ */
+    #grad {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+
+      /*
+        Top:    edge → mid1 → mid2 → slowly fade to dark (centre)
+        Bottom: mirror — dark → mid2 → mid1 → edge
+        The long middle section (stop-3 → calc(100% - stop-3))
+        is a smooth pixel-by-pixel transition to #121212.
+      */
+      background: linear-gradient(to bottom,
+
+          /* ── top band ── */
+          var(--c-edge) 0px,
+          var(--c-edge) var(--stop-1),
+
+          var(--c-mid1) var(--stop-1),
+          var(--c-mid1) var(--stop-2),
+
+          var(--c-mid2) var(--stop-2),
+          var(--c-mid2) var(--stop-3),
+
+          /* ── slow gradual fade to darkest centre ── */
+          var(--c-dark) 50%,
+
+          /* ── slow gradual rise back from centre ── */
+          var(--c-mid2) calc(100% - var(--stop-3)),
+          var(--c-mid2) calc(100% - var(--stop-2)),
+
+          var(--c-mid1) calc(100% - var(--stop-2)),
+          var(--c-mid1) calc(100% - var(--stop-1)),
+
+          var(--c-edge) calc(100% - var(--stop-1)),
+          var(--c-edge) 100%);
+    }
+
+
+    /* ═══════════════════════════════════════════════════
+       LAYER 2 — GRID OVERLAY
+       Fixed, sits on top of gradient, transparent base
+       ═══════════════════════════════════════════════════ */
+    #grid {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+
+      background-color: transparent;
+      background-image:
+        linear-gradient(to right,
+          var(--grid-line-color) var(--grid-line-width),
+          transparent var(--grid-line-width)),
+        linear-gradient(to bottom,
+          var(--grid-line-color) var(--grid-line-width),
+          transparent var(--grid-line-width));
+      background-size: var(--grid-size) var(--grid-size);
+      background-position: 0 0;
+      background-repeat: repeat;
+      opacity: var(--grid-opacity);
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Layer 1: gradient -->
+  <div id="grad"></div>
+
+  <!-- Layer 2: grid -->
+  <div id="grid"></div>
+
+</body>
+
+</html>

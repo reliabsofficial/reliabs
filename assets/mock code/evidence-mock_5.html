@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Evidence Mock</title>
+  <style>
+    :root {
+      --grid-line-color: #030303;
+      --grid-size: 24px;
+      --grid-line-width: 0.6px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { width: 100%; height: 100%; }
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', sans-serif;
+      overflow: hidden;
+    }
+
+
+
+    /* ═══════════════════════════════
+       PHONE SHELL
+    ═══════════════════════════════ */
+    .phone-wrap {
+      position: relative;
+      z-index: 2;
+    }
+
+    /* physical buttons */
+    .btn-silent, .btn-vol-up, .btn-vol-down, .btn-power {
+      position: absolute;
+      border-radius: 3px;
+    }
+    .btn-silent {
+      left: -4px; top: 110px;
+      width: 4px; height: 30px;
+      background: linear-gradient(to right, #1a1a1e, #2e2e32);
+      border-radius: 2px 0 0 2px;
+    }
+    .btn-vol-up {
+      left: -4px; top: 158px;
+      width: 4px; height: 52px;
+      background: linear-gradient(to right, #1a1a1e, #2e2e32);
+      border-radius: 2px 0 0 2px;
+    }
+    .btn-vol-down {
+      left: -4px; top: 222px;
+      width: 4px; height: 52px;
+      background: linear-gradient(to right, #1a1a1e, #2e2e32);
+      border-radius: 2px 0 0 2px;
+    }
+    .btn-power {
+      right: -4px; top: 178px;
+      width: 4px; height: 70px;
+      background: linear-gradient(to left, #1a1a1e, #2e2e32);
+      border-radius: 0 2px 2px 0;
+    }
+
+    /* outer titanium frame */
+    .phone {
+      width: 300px;
+      height: 620px;
+      border-radius: 50px;
+      background: linear-gradient(
+        145deg,
+        #3a3a3e 0%,
+        #2c2c30 20%,
+        #1e1e22 40%,
+        #2c2c30 60%,
+        #3a3a3e 80%,
+        #4a4a4e 100%
+      );
+      padding: 3px;
+      box-shadow:
+        0 0 0 0.5px rgba(255,255,255,0.08),
+        0 30px 80px rgba(0,0,0,0.85),
+        0 10px 30px rgba(0,0,0,0.5),
+        inset 0 1px 0 rgba(255,255,255,0.12),
+        inset 0 -1px 0 rgba(0,0,0,0.5);
+    }
+
+    /* ── SCREEN — fully transparent, grid bleeds through ── */
+    .phone-inner {
+      width: 100%;
+      height: 100%;
+      border-radius: 47px;
+      /* NO solid background — completely transparent */
+      background: transparent;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* very subtle dark tint so content is readable over grid */
+    .screen-tint {
+      position: absolute;
+      inset: 0;
+      background: rgba(8, 8, 10, 0.45); /* ← lower = more transparent, raise = more readable */
+      border-radius: 47px;
+      z-index: 0;
+    }
+
+    /* glass sheen */
+    .phone-inner::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 50%;
+      background: linear-gradient(to bottom, rgba(255,255,255,0.04), transparent);
+      border-radius: 47px 47px 0 0;
+      z-index: 20;
+      pointer-events: none;
+    }
+
+    /* Dynamic Island */
+    .island {
+      position: absolute;
+      top: 14px; left: 50%;
+      transform: translateX(-50%);
+      width: 110px; height: 32px;
+      background: #000;
+      border-radius: 20px;
+      z-index: 15;
+      box-shadow: 0 0 0 1px rgba(255,255,255,0.04);
+    }
+    .island::after {
+      content: '';
+      position: absolute;
+      right: 14px; top: 50%;
+      transform: translateY(-50%);
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: #0a0a0c;
+      border: 2px solid #1a1a1e;
+    }
+
+    /* Status bar */
+    .statusbar {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 58px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      padding: 0 28px 8px;
+      z-index: 14;
+    }
+    .status-time {
+      font-size: 15px; font-weight: 600;
+      color: rgba(255,255,255,0.9);
+      letter-spacing: 0.02em;
+    }
+    .status-icons { display: flex; align-items: center; gap: 6px; }
+
+    /* scrollable content */
+    .screen {
+      position: absolute;
+      inset: 0;
+      top: 58px;
+      bottom: 30px;
+      overflow-y: auto;
+      padding: 6px 18px 20px;
+      scrollbar-width: none;
+      z-index: 5;
+    }
+    .screen::-webkit-scrollbar { display: none; }
+
+    /* Home bar */
+    .home-bar {
+      position: absolute;
+      bottom: 10px; left: 50%;
+      transform: translateX(-50%);
+      width: 120px; height: 5px;
+      background: rgba(255,255,255,0.3);
+      border-radius: 99px;
+      z-index: 15;
+    }
+
+    /* bottom screen fade */
+    .screen-fade {
+      position: absolute;
+      bottom: 30px; left: 0; right: 0;
+      height: 70px;
+      background: linear-gradient(to bottom, transparent, rgba(8,8,10,0.6));
+      pointer-events: none;
+      z-index: 12;
+    }
+
+    /* ═══════════════════════════════
+       SCREEN CONTENT STYLES
+    ═══════════════════════════════ */
+    .page-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 0 14px;
+    }
+    .page-title {
+      font-size: 22px; font-weight: 700;
+      color: rgba(255,255,255,0.92);
+      letter-spacing: -0.02em;
+    }
+    .page-actions { display: flex; gap: 8px; }
+    .page-ico {
+      width: 30px; height: 30px;
+      border-radius: 8px;
+      background: rgba(255,255,255,0.07);
+      border: 0.5px solid rgba(255,255,255,0.1);
+      display: flex; align-items: center; justify-content: center;
+      color: rgba(255,255,255,0.5);
+      font-size: 13px;
+    }
+
+    .top-label {
+      font-size: 9.5px; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: rgba(255,255,255,0.28);
+      margin-bottom: 8px;
+    }
+    .opp-title {
+      font-size: 15px; font-weight: 700;
+      color: rgba(255,255,255,0.95);
+      line-height: 1.3; margin-bottom: 16px;
+      letter-spacing: -0.01em;
+    }
+
+    .stats { display: flex; gap: 7px; margin-bottom: 16px; }
+    .stat {
+      flex: 1;
+      background: rgba(255,255,255,0.06);
+      border: 0.75px solid rgba(255,255,255,0.09);
+      border-radius: 12px;
+      padding: 10px 8px; text-align: center;
+    }
+    .stat-num {
+      font-size: 18px; font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1; margin-bottom: 4px;
+    }
+    .red   { color: #f87171; }
+    .amber { color: #fbbf24; }
+    .wht   { color: rgba(255,255,255,0.9); }
+    .stat-desc { font-size: 8.5px; color: rgba(255,255,255,0.3); line-height: 1.3; }
+
+    .divider { height: 0.75px; background: rgba(255,255,255,0.08); margin-bottom: 12px; }
+
+    .ev-label {
+      font-size: 8.5px; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: rgba(255,255,255,0.22);
+      margin-bottom: 8px;
+    }
+    .ev-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+
+    .src {
+      width: 24px; height: 24px; border-radius: 7px;
+      flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 9px; font-weight: 800;
+      border: 0.5px solid rgba(255,255,255,0.1);
+    }
+    .src-mix  { background: rgba(124,58,237,0.25);  color: #a78bfa; }
+    .src-amp  { background: rgba(14,165,233,0.18);  color: #38bdf8; }
+    .src-jira { background: rgba(37,99,235,0.22);   color: #60a5fa; }
+    .src-lin  { background: rgba(167,139,250,0.18); color: #c4b5fd; }
+    .src-not  { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.55); }
+
+    .ev-text { flex: 1; font-size: 10.5px; color: rgba(255,255,255,0.62); line-height: 1.3; }
+    .ev-text span { font-weight: 700; color: rgba(255,255,255,0.88); }
+
+    .ev-badge {
+      font-size: 8.5px; padding: 2px 6px; border-radius: 4px;
+      background: rgba(255,255,255,0.05);
+      border: 0.5px solid rgba(255,255,255,0.1);
+      color: rgba(255,255,255,0.35); white-space: nowrap;
+    }
+    .ev-badge.red   { background: rgba(248,113,113,0.1); border-color: rgba(248,113,113,0.2); color: #fca5a5; }
+    .ev-badge.amber { background: rgba(251,191,36,0.1);  border-color: rgba(251,191,36,0.2);  color: #fde68a; }
+
+    .quote {
+      margin-top: 12px;
+      background: rgba(255,255,255,0.04);
+      border-left: 2px solid rgba(255,255,255,0.14);
+      border-radius: 0 8px 8px 0;
+      padding: 8px 10px;
+    }
+    .quote-text {
+      font-size: 10px; color: rgba(255,255,255,0.5);
+      font-style: italic; line-height: 1.5; margin-bottom: 4px;
+    }
+    .quote-from { font-size: 8.5px; color: rgba(255,255,255,0.22); }
+
+    .goal { margin-top: 12px; display: flex; align-items: center; gap: 8px; }
+    .goal-text { font-size: 10px; color: rgba(255,255,255,0.35); white-space: nowrap; }
+    .goal-track {
+      flex: 1; height: 3px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 99px; overflow: hidden;
+    }
+    .goal-fill {
+      height: 100%; border-radius: 99px;
+      background: linear-gradient(to right, #7c3aed, #a78bfa);
+    }
+    .goal-pct { font-size: 10px; font-weight: 700; color: rgba(255,255,255,0.5); }
+
+  </style>
+</head>
+<body>
+
+
+
+  <div class="phone-wrap">
+    <div class="btn-silent"></div>
+    <div class="btn-vol-up"></div>
+    <div class="btn-vol-down"></div>
+    <div class="btn-power"></div>
+
+    <div class="phone">
+      <div class="phone-inner">
+
+        <!-- screen tint — grid bleeds through this -->
+        <div class="screen-tint"></div>
+
+        <!-- Dynamic Island -->
+        <div class="island"></div>
+
+        <!-- Status Bar -->
+        <div class="statusbar">
+          <span class="status-time">19:02</span>
+          <div class="status-icons">
+            <svg width="16" height="12" viewBox="0 0 16 12" fill="rgba(255,255,255,0.8)">
+              <rect x="0"    y="7"   width="3" height="5" rx="1"/>
+              <rect x="4.5"  y="4.5" width="3" height="7.5" rx="1"/>
+              <rect x="9"    y="2"   width="3" height="10" rx="1"/>
+              <rect x="13.5" y="0"   width="3" height="12" rx="1" fill="rgba(255,255,255,0.25)"/>
+            </svg>
+            <svg width="16" height="12" viewBox="0 0 16 12" fill="none">
+              <path d="M8 9a1.5 1.5 0 1 1 0 3A1.5 1.5 0 0 1 8 9z" fill="rgba(255,255,255,0.8)"/>
+              <path d="M4.5 6.5C5.7 5.2 6.8 4.5 8 4.5s2.3.7 3.5 2" stroke="rgba(255,255,255,0.8)" stroke-width="1.4" stroke-linecap="round"/>
+              <path d="M1.5 3.5C3.5 1.5 5.6 0.5 8 0.5s4.5 1 6.5 3" stroke="rgba(255,255,255,0.3)" stroke-width="1.4" stroke-linecap="round"/>
+            </svg>
+            <svg width="24" height="12" viewBox="0 0 24 12" fill="none">
+              <rect x="0.5" y="0.5" width="20" height="11" rx="3" stroke="rgba(255,255,255,0.4)" stroke-width="1"/>
+              <rect x="2" y="2" width="14" height="8" rx="2" fill="rgba(255,255,255,0.8)"/>
+              <path d="M22 4v4a2.5 2.5 0 0 0 0-4z" fill="rgba(255,255,255,0.35)"/>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Screen content -->
+        <div class="screen">
+          <div class="page-header">
+            <span class="page-title">Evidence</span>
+            <div class="page-actions">
+              <div class="page-ico">···</div>
+              <div class="page-ico">✕</div>
+            </div>
+          </div>
+
+          <div class="top-label">Opportunity #1</div>
+          <div class="opp-title">Trial → Paid drop-off at<br>onboarding step 3</div>
+
+          <div class="stats">
+            <div class="stat">
+              <div class="stat-num red">$218k</div>
+              <div class="stat-desc">Revenue<br>at risk</div>
+            </div>
+            <div class="stat">
+              <div class="stat-num amber">47</div>
+              <div class="stat-desc">Accounts<br>affected</div>
+            </div>
+            <div class="stat">
+              <div class="stat-num wht">64%</div>
+              <div class="stat-desc">Drop-off<br>rate</div>
+            </div>
+          </div>
+
+          <div class="divider"></div>
+          <div class="ev-label">Backed by</div>
+
+          <div class="ev-row">
+            <div class="src src-mix">Mx</div>
+            <div class="ev-text">Funnel exits spike at <span>schema setup</span></div>
+            <div class="ev-badge red">↑ 64%</div>
+          </div>
+          <div class="ev-row">
+            <div class="src src-amp">Am</div>
+            <div class="ev-text"><span>6-week trend</span> — rising since v2</div>
+            <div class="ev-badge amber">↑ Rising</div>
+          </div>
+          <div class="ev-row">
+            <div class="src src-jira">Ji</div>
+            <div class="ev-text"><span>12 open tickets</span> — $140k ARR</div>
+            <div class="ev-badge">Jira</div>
+          </div>
+          <div class="ev-row">
+            <div class="src src-lin">Li</div>
+            <div class="ev-text">PROD-841 · <span>6 enterprise accounts</span></div>
+            <div class="ev-badge">Linear</div>
+          </div>
+          <div class="ev-row">
+            <div class="src src-not">No</div>
+            <div class="ev-text">CS note — <span>every enterprise</span> hit this</div>
+            <div class="ev-badge">Notion</div>
+          </div>
+
+          <div class="quote">
+            <div class="quote-text">"We spent 3 days on the schema step. Our engineer gave up."</div>
+            <div class="quote-from">VP Eng · Acme Corp · $48k ARR · Intercom</div>
+          </div>
+
+          <div class="goal">
+            <div class="goal-text">Q3 OKR · Enterprise ARR</div>
+            <div class="goal-track"><div class="goal-fill" style="width:72%"></div></div>
+            <div class="goal-pct">72%</div>
+          </div>
+        </div>
+
+        <div class="screen-fade"></div>
+        <div class="home-bar"></div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

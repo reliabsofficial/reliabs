@@ -1,0 +1,1896 @@
+/* Global Styles */
+:root {
+    --nav-font-size: 0.9rem;
+    --brand-font-size: 1.2rem;
+
+    /* ★ NOTIFICATION MOCKUP — CHANGE THESE TO REPOSITION ★ */
+    --notif-top: 80px;
+    /* distance from the TOP edge     */
+    --notif-right: 310px;
+    /* distance from the RIGHT edge   */
+    --notif-width: 340px;
+    /* iframe width                   */
+    --notif-height: 250px;
+    /* iframe height                  */
+    --notif-scale: 0.85;
+    /* scale factor (1 = full size)   */
+    --notif-z: 25;
+    /* z-index stacking order         */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #ffffff;
+    overflow-x: hidden;
+}
+
+/* Hero Section */
+.hero-section {
+    width: 100%;
+    height: 100vh;
+    position: relative;
+    /* Background with White Fade (Diffusion) at Bottom 150px-200px */
+    background: linear-gradient(to bottom, transparent calc(100% - 200px), #ffffff 100%),
+        url('assets/pictures/1hero-bg.png') no-repeat center center;
+    background-size: cover;
+    overflow: hidden;
+    /* Prevent height increase from internal content */
+}
+
+header {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    position: fixed;
+    /* ← Changed to fixed to "float" while scrolling */
+    top: 10px;
+    z-index: 1000;
+}
+
+.navbar {
+    width: min(1290px, 92%);
+    height: 50px;
+    /* ★ TRANSPARENCY CONTROLS ★ — Lower the 0.15 for more clear-through */
+    background: rgba(255, 255, 255, 0.7);
+    /* ★ BLUR CONTROLS ★ — Lower 8px for clearer background text */
+    backdrop-filter: blur(4px) saturate(180%);
+    -webkit-backdrop-filter: blur(4px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px 0 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+.nav-left {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.nav-brand {
+    color: #000;
+    font-weight: 800;
+    font-size: var(--brand-font-size);
+    letter-spacing: 1px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.nav-logo-img {
+    height: 55px;
+    width: auto;
+    display: block;
+    /* keeps it crisp at small sizes */
+    image-rendering: crisp-edges;
+    transition: filter 0.3s ease;
+}
+
+/* Invert logo to white when navbar is in dark mode */
+.navbar.nav-dark .nav-logo-img {
+    filter: invert(1) brightness(2);
+}
+
+.nav-divider {
+    width: 1px;
+    height: 30px;
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 35px;
+}
+
+.nav-links a {
+    color: #000;
+    text-decoration: none;
+    font-size: var(--nav-font-size);
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.nav-links a:hover {
+    opacity: 0.6;
+}
+
+/* Auth Buttons */
+.nav-auth {
+    display: flex;
+    gap: 12px;
+}
+
+.btn-login {
+    background-color: #ffffff;
+    color: #000000;
+    text-decoration: none;
+    font-size: var(--nav-font-size);
+    font-weight: 600;
+    padding: 10px 22px;
+    border-radius: 15px;
+    transition: all 0.3s ease;
+}
+
+.btn-login:hover {
+    background-color: rgba(255, 255, 255, 0.9);
+}
+
+.btn-get-started {
+    background-color: #000000;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: var(--nav-font-size);
+    font-weight: 600;
+    padding: 10px 25px;
+    border-radius: 15px;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.btn-get-started:hover {
+    background-color: #333;
+}
+
+/* ============================================
+   DARK NAVBAR THEME
+   ============================================ */
+.navbar,
+.nav-brand,
+.nav-divider {
+    transition: all 0.3s ease;
+}
+
+.navbar.nav-dark {
+    background: rgba(30, 30, 32, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.navbar.nav-dark .nav-brand {
+    color: #ffffff;
+}
+
+.navbar.nav-dark .nav-divider {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.navbar.nav-dark .nav-links a {
+    color: #dfdfdf;
+}
+
+.navbar.nav-dark .nav-links a:hover {
+    color: #ffffff;
+}
+
+.navbar.nav-dark .btn-login {
+    background-color: transparent;
+    color: #ffffff;
+}
+
+.navbar.nav-dark .btn-login:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.navbar.nav-dark .btn-get-started {
+    background-color: #ffffff;
+    color: #000000;
+}
+
+.navbar.nav-dark .btn-get-started:hover {
+    background-color: #e0e0e0;
+}
+
+/* Text Section 1 */
+.text-section1 {
+    margin-left: 330px;
+    margin-top: 300px;
+    /* Reset slightly to fit within 100vh */
+    max-width: 450px;
+}
+
+.big-text-1 {
+    font-size: 47px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: #000000;
+    line-height: 1;
+    word-spacing: -4px;
+    letter-spacing: -2px;
+}
+
+.big-text-2 {
+    font-size: 47px;
+    font-weight: 500;
+    margin-bottom: 18px;
+    color: #000000;
+    line-height: 1.2;
+    word-spacing: -6px;
+    letter-spacing: -1px;
+}
+
+.desc-text {
+    font-size: 18px;
+    font-weight: 700;
+    color: #000000;
+    line-height: 1;
+    opacity: 1;
+    margin-bottom: 1px;
+    word-spacing: -2px;
+}
+
+/* Waitlist CTA — positioned below the phone mock */
+.waitlist-cta {
+    position: absolute;
+    /* ★ ADJUST THESE TO MOVE ★ */
+    bottom: -300px;
+    /* ← push further down to go below phone mock */
+    left: -33px;
+    /* ← aligned with hero-mock-frame left edge   */
+    z-index: 20;
+    text-align: center;
+    pointer-events: auto;
+}
+
+.waitlist-text {
+    margin-bottom: 18px;
+    /* ← gap before the button */
+    font-size: 20px;
+    font-weight: 600;
+    color: #000000;
+    opacity: 1;
+    white-space: nowrap;
+}
+
+.waitlist-count {
+    font-weight: 700;
+    color: #000000;
+    opacity: 1;
+}
+
+/* Join Now Button — 173×33, black bg, white text */
+.btn-join-now {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    width: 173px;
+    height: 33px;
+    background-color: #000000;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    letter-spacing: 0.02em;
+}
+
+.btn-join-now:hover {
+    background-color: #333;
+}
+
+/* Integrations Divider — bottom of hero */
+.integrations-divider {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 0;
+    z-index: 10;
+}
+
+.divider-line {
+    width: 400px;
+    /* ← length of each horizontal line */
+    height: 2px;
+    background-color: rgba(0, 0, 0, 0.15);
+}
+
+.divider-pill {
+    padding: 4px 10px;
+    border: 0.5px solid rgba(0, 0, 0, 0.15);
+    border-radius: 50px;
+    font-size: 11px;
+    font-weight: 600;
+    color: rgba(0, 0, 0, 0.35);
+    letter-spacing: 2px;
+    white-space: nowrap;
+    background: transparent;
+}
+
+/* Integrations Section */
+.integrations-section {
+    width: 100%;
+    background-color: #ffffff;
+    position: relative;
+    z-index: 5;
+    padding-top: 20px;
+    /* ← Gap from the Integrations divider */
+    margin-bottom: 80px;
+}
+
+/* Infinite Logo Slider */
+@keyframes slides {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(-100%);
+    }
+}
+
+.logos {
+    overflow: hidden;
+    padding: 30px 0px;
+    white-space: nowrap;
+    position: relative;
+    /* ★ CHANGE THIS TO ADJUST LOGO LOOP WIDTH ★ */
+    max-width: 1290px;
+    /* ← change this value (e.g. 600px, 1200px, 100%) */
+    margin: 0 auto;
+    /* keeps it centered */
+}
+
+.logos:before,
+.logos:after {
+    position: absolute;
+    top: 0;
+    content: '';
+    width: 250px;
+    height: 100%;
+    z-index: 2;
+}
+
+.logos:before {
+    left: 0;
+    background: linear-gradient(to left, rgba(255, 255, 255, 0), rgb(255, 255, 255));
+}
+
+.logos:after {
+    right: 0;
+    background: linear-gradient(to right, rgba(255, 255, 255, 0), rgb(255, 255, 255));
+}
+
+.logo_items {
+    display: inline-block;
+    animation: 40s slides infinite linear;
+}
+
+.logos:hover .logo_items {
+    animation-play-state: paused;
+}
+
+.logo_items img {
+    height: 28px;
+    margin: 0 40px;
+}
+
+/* ============================================
+   TEXT CONTENT SECTION 1 — DRAFT PLAN
+   ============================================ */
+.text-content-section-1 {
+    width: 100%;
+    background-color: #ffffff;
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+    /* ← gap from logo loop section */
+}
+
+.tcs1-container {
+    width: 1150px;
+    /* ← full section width */
+    max-width: 92%;
+}
+
+/* Heading Divider — pill on left, line on right only */
+.tcs1-heading-divider {
+    display: flex;
+    align-items: center;
+    gap: 0;
+}
+
+.tcs1-pill {
+    padding: 4px 10px;
+    border: 0.5px solid rgba(0, 0, 0, 0.15);
+    border-radius: 50px;
+    font-size: 11px;
+    font-weight: 600;
+    color: rgba(0, 0, 0, 0.35);
+    letter-spacing: 2px;
+    white-space: nowrap;
+    background: transparent;
+}
+
+.tcs1-line {
+    flex: 1;
+    max-width: 400px;
+    /* ← length of the right line */
+    height: 2px;
+    background-color: rgba(0, 0, 0, 0.15);
+}
+
+/* Content Row — text left, mock box right */
+.tcs1-content-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-top: 40px;
+    /* ← gap from heading to content row */
+}
+
+/* Text Content */
+.tcs1-text {
+    max-width: 550px;
+    /* ← keeps text readable, left-aligned */
+    flex-shrink: 0;
+    margin-top: 95px;
+}
+
+/* Mock Box — 500×430, background image */
+.tcs1-mock-box {
+    width: 500px;
+    /* ← mock box width  */
+    height: 430px;
+    /* ← mock box height */
+    flex-shrink: 0;
+    margin-left: auto;
+    /* pushes it to the right */
+    border-radius: 16px;
+    background: url('assets/pictures/1hero-bg.png') no-repeat center center;
+    background-size: cover;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Iframe inside mock box — 450x360 with shadow */
+.tcs1-mock-iframe {
+    width: 450px;
+    height: 360px;
+    border: none;
+    border-radius: 12px;
+    position: relative;
+    z-index: 1;
+    background: transparent;
+    pointer-events: none;
+    box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.22),
+        0 4px 12px rgba(0, 0, 0, 0.10),
+        0 0 0 0.5px rgba(0, 0, 0, 0.08);
+}
+
+.tcs1-big-text {
+    font-size: 35px;
+    font-weight: 600;
+    color: #000000;
+    line-height: 1.3;
+    margin-bottom: 18px;
+    letter-spacing: -0.5px;
+    font-family: 'Inter', sans-serif;
+}
+
+.tcs1-paragraph {
+    font-size: 18px;
+    font-weight: 400;
+    color: grey;
+    line-height: 1.3;
+    margin-bottom: 12px;
+    font-family: 'Inter', sans-serif;
+}
+
+/* Text Content Section 2 */
+.text-content-section-2 {
+    width: 100%;
+    background-color: #ffffff;
+    display: flex;
+    justify-content: center;
+    margin-top: 70px;
+    /* ← gap from text section 1 */
+}
+
+/* Section 2 — Reversed heading: line on LEFT, pill on RIGHT */
+.tcs2-heading-reversed {
+    flex-direction: row;
+    justify-content: flex-end;
+    /* push pill to the right */
+}
+
+.tcs2-heading-reversed .tcs1-line {
+    margin-left: auto;
+    /* line sits on the left, stretches toward the pill */
+}
+
+/* Section 2 — Reversed content row: mock box LEFT, text RIGHT */
+.tcs2-row-reversed {
+    flex-direction: row;
+    /* already default, but explicit */
+}
+
+.tcs2-row-reversed .tcs1-mock-box {
+    margin-left: 0;
+    margin-right: auto;
+    /* pushes mock box to the left */
+}
+
+.tcs2-row-reversed .tcs1-text {
+    text-align: left;
+    /* keeps text left-alserifigned within its column */
+}
+
+/* Text Content Section 3 */
+.text-content-section-3 {
+    width: 100%;
+    background-color: #ffffff;
+    display: flex;
+    justify-content: center;
+    margin-top: 70px;
+    /* ← gap from text section 2 */
+}
+
+/* Mockup Image */
+.mockup-wrapper {
+    position: absolute;
+    right: 390px;
+    top: 130px;
+    z-index: 10;
+    pointer-events: none;
+}
+
+.mockup-frame {
+    width: 670px;
+    height: 470px;
+    border: none;
+    border-radius: 12px;
+    box-shadow:
+        0 24px 60px rgba(0, 0, 0, 0.22),
+        0 6px 16px rgba(0, 0, 0, 0.1),
+        0 0 0 0.5px rgba(0, 0, 0, 0.12);
+    pointer-events: none;
+}
+
+.hero-mock-frame {
+    position: absolute;
+    /* Changeable position — adjust these to move the hero-mock */
+    bottom: -120px;
+    left: -33px;
+    z-index: 20;
+    /* Original phone mockup size */
+    width: 295px;
+    height: 610px;
+    /* Scale down to fit ~165x350 */
+    transform: scale(0.559);
+    transform-origin: bottom left;
+    border: none;
+    border-radius: 55px;
+    box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.25),
+        0 4px 12px rgba(0, 0, 0, 0.12),
+        0 0 0 0.5px rgba(0, 0, 0, 0.1);
+    pointer-events: none;
+}
+
+/* ============================================
+   NOTIFICATION MOCKUP — POSITION CONTROLS
+   ============================================
+   Change these values in :root to reposition:
+   --notif-top    → distance from TOP of hero section
+   --notif-right  → distance from RIGHT edge of viewport
+   --notif-width  → iframe width  (content is ~300px)
+   --notif-height → iframe height (content is ~220px)
+   --notif-scale  → scale the whole notification block
+   --notif-z      → z-index layer order
+   ============================================ */
+
+.notif-mock-frame {
+    position: absolute;
+    /* ★ CHANGE THESE TO MOVE ★ */
+    top: var(--notif-top, 80px);
+    /* ← distance from top of hero   */
+    right: var(--notif-right, 60px);
+    /* ← distance from right of hero */
+    z-index: var(--notif-z, 25);
+
+    /* Size */
+    width: var(--notif-width, 340px);
+    height: var(--notif-height, 250px);
+
+    /* Scale — shrink or grow the whole block */
+    transform: scale(var(--notif-scale, 0.85));
+    transform-origin: top right;
+
+    /* Styling */
+    border: none;
+    border-radius: 18px;
+    background: none;
+    pointer-events: none;
+
+    /* Shadow — same family as other mockups */
+    box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.22),
+        0 4px 12px rgba(0, 0, 0, 0.10),
+        0 0 0 0.5px rgba(0, 0, 0, 0.08);
+}
+
+/* ============================================
+   FEATURES SECTION
+   ============================================ */
+.features-section {
+    position: relative;
+    width: 100%;
+    height: 5350px;
+    display: flow-root;
+    /* Removed overflow: hidden so sticky works */
+}
+
+/* Background iframe */
+.features-bg-iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* Features Main Text Container */
+.features-main-texts {
+    width: 950px;
+    margin-top: 70px;
+    margin-bottom: 60px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.features-main-text-1 {
+    font-size: 35px;
+    font-weight: 600;
+    color: #ffffff;
+    font-family: 'Inter', sans-serif;
+    margin-bottom: 40px;
+    text-align: left;
+    line-height: 1;
+    letter-spacing: -0.5px;
+}
+
+.features-main-text-2 {
+    font-size: 18px;
+    font-weight: 550;
+    color: #dfdbdb;
+    font-family: 'Inter', sans-serif;
+    text-align: left;
+    line-height: 1.5;
+}
+
+/* Features Heading Divider */
+.features-heading-divider {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0;
+    z-index: 10;
+}
+
+.features-divider-line {
+    width: 400px;
+    height: 2px;
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+.features-divider-pill {
+    padding: 4px 10px;
+    border: 0.5px solid rgba(255, 255, 255, 0.15);
+    border-radius: 50px;
+    font-size: 11px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.35);
+    letter-spacing: 2px;
+    white-space: nowrap;
+    background: transparent;
+}
+
+/* Features Content Layout Container */
+.features-content {
+    width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    gap: 230px;
+    align-items: flex-start;
+    padding-bottom: 150px;
+}
+
+.features-text-container {
+    width: 450px;
+    margin-top: 340px;
+    position: sticky;
+    top: 340px;
+    margin-bottom: 150px;
+    /* NEW: Add this! The bigger the number, the EARLIER it stops sticking */
+
+}
+
+.features-big-text {
+    font-size: 35px;
+    font-weight: 600;
+    color: #ffffff;
+    line-height: 1.2;
+    margin-bottom: 20px;
+    font-family: 'Inter', sans-serif;
+}
+
+.features-small-text {
+    font-size: 18px;
+    font-weight: 400;
+    color: #a1a1a1;
+    line-height: 1.4;
+    font-family: 'Inter', sans-serif;
+}
+
+.features-mock-column {
+    margin-top: 230px;
+    display: flex;
+    flex-direction: column;
+}
+
+.features-mock-container {
+    width: 480px;
+    height: 530px;
+    margin-bottom: 300px;
+    /* Removed placeholder background to keep mock transparent */
+    border-radius: 16px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    pointer-events: none;
+}
+
+.features-mock-container:last-child {
+    margin-bottom: 0px;
+}
+
+/* ============================================
+   TRANSPARENT MOCK IFRAMES — CONTROLS 
+   ============================================ */
+.feature-mock-iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    background: transparent;
+    pointer-events: auto;
+}
+
+/* ★ ADJUST THE SCALE VALUE BELOW TO SCALE DOWN OR INCREASE THE WIDTH/HEIGHT OF THE MOCKS TO FIT THE PLACEHOLDER ★ */
+.iframe-mock-1 {
+    transform: scale(1.0);
+    transform-origin: center center;
+}
+
+.iframe-mock-2 {
+    transform: scale(1.0);
+    transform-origin: center center;
+}
+
+.iframe-mock-3 {
+    transform: scale(1.0);
+    transform-origin: center center;
+}
+
+.iframe-mock-4 {
+    transform: scale(1.0);
+    transform-origin: center center;
+}
+
+.iframe-mock-5 {
+    transform: scale(0.8);
+    transform-origin: center center;
+}
+
+.iframe-mock-6 {
+    transform: scale(1.0);
+    transform-origin: center center;
+}
+
+/* ============================================
+   FAQS SECTION
+   ============================================ */
+.faqs-section {
+    position: relative;
+    width: 100%;
+    padding-top: 150px;
+    padding-bottom: 150px;
+    height: 900px;
+}
+
+.faqs-bg-iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    pointer-events: none;
+}
+
+.faqs-heading-margin {
+    margin-bottom: 40px;
+}
+
+.faqs-container {
+    width: 830px;
+    margin: 0 auto;
+}
+
+.faqs-big-text {
+    font-size: 35px;
+    font-weight: 600;
+    color: #ffffff;
+    text-align: center;
+    margin-bottom: 25px;
+    font-family: 'Inter', sans-serif;
+    letter-spacing: -0.5px;
+}
+
+.faqs-small-text {
+    font-size: 18px;
+    color: #c7c6c6;
+    text-align: center;
+    margin-bottom: 40px;
+    line-height: 1.2;
+    font-family: 'Inter', sans-serif;
+    max-width: 670px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.faq-accordion {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.faq-item {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.faq-item:hover {
+    background: rgba(255, 255, 255, 0.06);
+}
+
+.faq-question {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #ffffff;
+    font-size: 17px;
+    font-weight: 500;
+    font-family: 'Inter', sans-serif;
+}
+
+.faq-icon {
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 50%;
+    font-size: 20px;
+    color: #ffffff;
+    line-height: 1;
+    transition: transform 0.3s ease;
+}
+
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+}
+
+.faq-answer p {
+    margin-top: 15px;
+    color: #a1a1a1;
+    font-size: 15px;
+    line-height: 1.6;
+    font-family: 'Inter', sans-serif;
+}
+
+/* Active State */
+.faq-item.active .faq-answer {
+    max-height: 300px;
+}
+
+/* ============================================
+   FOOTER SECTION
+   ============================================ */
+.footer-section {
+    background-color: #000000;
+    width: 100%;
+    padding: 80px 0 60px 0;
+    color: #ffffff;
+    font-family: 'Inter', sans-serif;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    height: 700px;
+}
+
+.footer-container {
+    width: 1300px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 80px;
+}
+
+/* Top Section */
+.footer-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.footer-brand-col {
+    max-width: 350px;
+}
+
+/* Row: white logo icon + RELIABS text sit side by side */
+.footer-brand-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+
+}
+
+.footer-logo-img {
+    width: 105px;
+    height: 120px;
+    object-fit: contain;
+    display: block;
+    /* logo is already white & transparent — no filter needed */
+}
+
+.footer-brand-name {
+    font-size: 30px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    display: block;
+    color: #ffffff;
+    /* margin-bottom moved to .footer-brand-row */
+    margin-bottom: 0;
+    margin-left: -15px;
+}
+
+.footer-brand-desc {
+    font-size: 16px;
+    color: #a1a1a1;
+    line-height: 1.5;
+    margin: 0;
+}
+
+.footer-links-wrapper {
+    display: flex;
+    gap: 150px;
+    padding-right: 50px;
+}
+
+.footer-link-col {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.footer-col-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0 0 5px 0;
+    color: #ffffff;
+}
+
+.footer-link-col a {
+    color: #a1a1a1;
+    text-decoration: none;
+    font-size: 15px;
+    transition: color 0.3s;
+}
+
+.footer-link-col a:hover {
+    color: #ffffff;
+}
+
+/* Middle: Social Box */
+.footer-social-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 30px 40px;
+    margin-top: 100px;
+}
+
+.social-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 500;
+    flex: 1;
+    justify-content: center;
+    transition: opacity 0.3s;
+}
+
+.social-link:hover {
+    opacity: 0.7;
+}
+
+.social-divider {
+    width: 1px;
+    height: 30px;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.social-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Bottom: Info */
+.footer-bottom {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.footer-bottom p {
+    color: #a1a1a1;
+    font-size: 14px;
+    margin: 0;
+}
+
+.footer-bottom a {
+    color: #a1a1a1;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.footer-bottom a:hover {
+    color: #ffffff;
+}
+
+/* Gradient Text Animation */
+.gradient-text {
+    background: linear-gradient(90deg, #4aa3ff 0%, #ffffff 50%, #4aa3ff 100%);
+    background-size: 200% auto;
+    color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+    animation: gradientLoop 3s linear infinite;
+}
+
+@keyframes gradientLoop {
+    0% {
+        background-position: 0% center;
+    }
+
+    100% {
+        background-position: -200% center;
+    }
+}
+
+/* ============================================
+   RESPONSIVE STYLES (TABLETS & PHONES)
+   ============================================ */
+
+/* Hide mobile blocks on desktop unconditionally */
+@media (min-width: 1025px) {
+    .mobile-features-wrapper {
+        display: none !important;
+    }
+}
+
+@media (max-width: 1024px) {
+
+    /* Global Overrides */
+    body {
+        overflow-x: hidden;
+    }
+
+    /* Navigation */
+    .navbar {
+        width: 95%;
+        padding: 0 15px;
+        gap: 15px;
+    }
+
+    .nav-left {
+        gap: 15px;
+    }
+
+    .nav-links {
+        display: none;
+        /* Hide standard links to save space */
+    }
+
+    .btn-login,
+    .btn-get-started {
+        padding: 8px 15px;
+        font-size: 0.8rem;
+    }
+
+    .hamburger-icon {
+        display: block !important;
+        font-size: 24px;
+        cursor: pointer;
+        z-index: 1001;
+    }
+
+    /* Hero Section */
+    .hero-section {
+        height: auto;
+        min-height: 100vh;
+        padding-bottom: -200px;
+        /* Leave space for stacked hero mockups */
+    }
+
+    .text-section1 {
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 150px;
+        max-width: 90%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .big-text-1,
+    .big-text-2 {
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    /* Hero Mockups Restructure */
+    .mockup-wrapper {
+        position: relative;
+        right: auto;
+        top: 60px;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto;
+        pointer-events: auto;
+    }
+
+    .mockup-frame {
+        width: 100%;
+        max-width: 670px;
+        height: 380px;
+        transform: scale(0.95);
+        transform-origin: top center;
+        margin: 0 auto;
+    }
+
+    .hero-mock-frame {
+        position: relative;
+        bottom: auto;
+        left: auto;
+        transform: scale(0.5);
+        transform-origin: top center;
+        margin-top: -100px;
+        /* Overlap nicely */
+        margin-bottom: 0px;
+    }
+
+    .waitlist-cta {
+        position: relative;
+        bottom: auto;
+        left: auto;
+
+        margin-bottom: 40px;
+    }
+
+    .notif-mock-frame {
+        display: none;
+        /* Hide to save space as requested */
+    }
+
+    /* Product Integration & Text Content (TCS1, TCS2, TCS3) */
+    .tcs1-container {
+        width: 90%;
+        max-width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .tcs1-heading-divider,
+    .features-heading-divider {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .tcs1-content-row,
+    .tcs2-row-reversed {
+        flex-direction: column;
+        align-items: center;
+        margin-top: 20px;
+    }
+
+    .tcs1-text {
+        max-width: 100%;
+        margin-top: 30px;
+        text-align: center;
+        margin-bottom: 50px;
+    }
+
+    .tcs2-row-reversed .tcs1-text {
+        text-align: center;
+    }
+
+    .tcs1-mock-box {
+        width: 100%;
+        max-width: 500px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .tcs1-mock-iframe {
+        width: 90%;
+        transform: scale(0.9);
+        height: 340px;
+    }
+
+    .tcs1-big-text {
+        text-align: center;
+    }
+
+    /* Features Section */
+    .features-section {
+        height: auto;
+        padding-bottom: 80px;
+    }
+
+    .features-main-texts {
+        width: 90%;
+        text-align: center;
+    }
+
+    .features-main-text-1 {
+        text-align: center;
+    }
+
+    .features-main-text-2 {
+        text-align: center;
+    }
+
+    /* Toggle active sections for responsiveness */
+    .features-content {
+        display: none !important;
+        /* Hide sticky desktop version */
+    }
+
+    .mobile-features-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 90%;
+        margin: 60px auto 0 auto;
+        gap: 60px;
+    }
+
+    /* JavaScript-driven Feature Blocks (Mobile view) */
+    .mobile-feature-block {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        margin-bottom: 40px;
+        opacity: 0.1;
+        transform: scale(0.95) translateY(20px);
+        transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+
+    .mobile-feature-block.fade-in {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+
+    .mobile-feature-text {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .mobile-feature-text .features-small-text {
+        text-align: center;
+    }
+
+    .mobile-features-mock-container {
+        width: 100%;
+        max-width: 480px;
+        height: auto;
+        position: relative;
+        display: flex;
+        justify-content: center;
+    }
+
+    .mobile-features-mock-container iframe {
+        width: 100%;
+        max-width: 450px;
+        height: 400px;
+        border: none;
+        background: transparent;
+    }
+
+    /* FAQs & Footer */
+    .faqs-section {
+        height: auto;
+        padding-top: 60px;
+        padding-bottom: 60px;
+    }
+
+    .faqs-container {
+        width: 90%;
+    }
+
+    .footer-section {
+        height: auto;
+        padding: 60px 0;
+    }
+
+    .footer-container {
+        width: 90%;
+        gap: 40px;
+    }
+
+    .footer-top {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 40px;
+    }
+
+    .footer-brand-col {
+        align-items: center;
+    }
+
+    .footer-links-wrapper {
+        flex-direction: column;
+        gap: 40px;
+        padding-right: 0;
+        width: 100%;
+        align-items: center;
+    }
+
+    .footer-link-col {
+        align-items: center;
+    }
+
+    .footer-social-box {
+        flex-direction: column;
+        gap: 20px;
+        padding: 30px 20px;
+        margin-top: 40px;
+    }
+
+    .social-divider {
+        width: 80%;
+        height: 1px;
+    }
+}
+
+/* Tablet Premium Layout (iPad Portrait to Laptop) */
+@media (min-width: 769px) and (max-width: 1024px) {
+
+    /* Navigation & Hybrid Bar */
+    .nav-links {
+        display: none !important;
+        /* Hide direct links, use hamburger */
+    }
+
+    .hamburger-icon {
+        display: block !important;
+        color: #000 !important;
+        /* Default black for light theme */
+        margin-left: 15px;
+    }
+
+    /* Dark Theme Toggle for Tablet/Mobile */
+    .navbar.nav-dark {
+        background: rgba(0, 0, 0, 0.9) !important;
+        border-color: rgba(255, 255, 255, 0.1) !important;
+    }
+
+    .navbar.nav-dark .nav-brand,
+    .navbar.nav-dark .hamburger-icon {
+        color: #fff !important;
+    }
+
+    /* Solid background on mobile to ensure readability */
+    @media (max-width: 768px) {
+        .navbar {
+            background: #ffffff !important;
+            /* Solid white for Hero/Integrations */
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar .nav-brand,
+        .navbar .hamburger-icon {
+            color: #000000 !important;
+        }
+    }
+
+    .nav-auth {
+        display: flex !important;
+        align-items: center;
+        gap: 15px;
+    }
+
+    /* Hero Center & Alignment */
+    .hero-section {
+        padding-bottom: 300px;
+        /* Balanced gap for mocks */
+    }
+
+    .text-section1 {
+        max-width: 850px;
+        margin-top: 180px;
+    }
+
+    /* Kinso-style Layered Mockups */
+    .mockup-wrapper {
+        height: 520px;
+        margin-top: -30px;
+        overflow: visible;
+    }
+
+    .mockup-frame {
+        position: relative;
+        transform: scale(0.75);
+        /* Adjusted for better fit */
+        transform-origin: center center;
+        margin: 0 auto;
+        z-index: 10;
+        display: block;
+    }
+
+    .hero-mock-frame {
+        position: absolute;
+        bottom: -40px;
+        left: 5%;
+        /* Overlap bottom-left */
+        transform: scale(0.5);
+        transform-origin: bottom left;
+        z-index: 30;
+        display: block !important;
+    }
+
+    .notif-mock-frame {
+        display: block !important;
+        position: absolute;
+        top: -40px;
+        right: 5%;
+        /* Overlap top-right */
+        transform: scale(0.8);
+        transform-origin: top right;
+        z-index: 25;
+    }
+
+    /* Waitlist CTA Alignment */
+    .waitlist-cta {
+        margin-top: 150px !important;
+        position: relative;
+        z-index: 40;
+    }
+
+    /* Restore Feature Side-by-Side (2 Columns) */
+    .tcs1-content-row,
+    .tcs2-row-reversed {
+        flex-direction: row !important;
+        align-items: center;
+        justify-content: center;
+        gap: 60px;
+    }
+
+    .tcs1-text {
+        text-align: left !important;
+        max-width: 450px;
+        margin-top: 0;
+    }
+
+    .tcs2-row-reversed .tcs1-text {
+        text-align: left !important;
+    }
+
+    .tcs1-mock-box {
+        margin: 0;
+    }
+
+    /* Column Reversals to keep visual Flow */
+    .tcs2-row-reversed {
+        flex-direction: row-reverse !important;
+    }
+}
+
+/* Strictly Mobile Shrinking Overrides */
+@media (max-width: 768px) {
+
+    .big-text-1,
+    .big-text-2 {
+        font-size: 38px;
+    }
+
+    .tcs1-big-text {
+        font-size: 26px;
+    }
+
+    .features-main-text-1 {
+        font-size: 26px;
+        font-weight: 700;
+    }
+
+    .features-big-text {
+        font-size: 24px;
+    }
+
+    .faqs-big-text {
+        font-size: 26px;
+    }
+
+    .mockup-frame {
+        transform: scale(0.55) !important;
+        transform-origin: top right !important;
+        top: -420px !important;
+        right: -10vw !important;
+        height: 470px;
+    }
+
+    .hero-mock-frame {
+        transform: scale(0.36) !important;
+        transform-origin: left top !important;
+        top: -320px !important;
+        left: 15vw !important;
+        margin: 0;
+    }
+
+    .hamburger-icon {
+        color: black;
+    }
+
+    .waitlist-cta {
+        /* Unified Large Gap */
+        margin-bottom: 40px !important;
+        position: relative;
+        z-index: 100;
+        left: 0;
+    }
+
+    .mobile-features-mock-container iframe {
+        height: 350px;
+        transform: scale(0.85);
+        transform-origin: center top;
+        margin-top: -20px;
+    }
+}
+
+@media (max-width: 480px) {
+
+    /* Point 7: Decrease Global Typography by 2px to 4px */
+    .big-text-1,
+    .big-text-2 {
+        font-size: 30px;
+        /* Was 32px */
+        letter-spacing: -1px;
+        word-spacing: -2px;
+    }
+
+    .tcs1-big-text {
+        font-size: 22px;
+        /* Was 24px */
+    }
+
+    .features-main-text-1 {
+        font-size: 20px;
+        /* Was 22px */
+    }
+
+    .features-big-text {
+        font-size: 22px;
+        /* Assume decremented */
+    }
+
+    .faqs-big-text {
+        font-size: 24px;
+        /* Assume decremented */
+    }
+
+    /* Navbar Hamburger & Logic */
+    .btn-login,
+    .btn-get-started {
+        padding: 8px 12px;
+        font-size: 0.75rem;
+    }
+
+    .btn-login {
+        display: none;
+        /* Hide login natively on mobile */
+    }
+
+    .nav-brand {
+        font-size: 1rem;
+    }
+
+    .nav-divider {
+        display: none;
+    }
+
+    /* ---- WHITE THEME mobile dropdown ---- */
+    .nav-links {
+        display: none;
+        /* Hidden by default */
+        flex-direction: column;
+        width: 100%;
+        background: #ffffff;
+        /* White bg for light theme */
+        position: absolute;
+        top: 60px;
+        left: 0;
+        padding: 20px;
+        gap: 20px;
+        z-index: 100;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        border-radius: 0 0 12px 12px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    }
+
+    .nav-links a {
+        color: #000000 !important;
+        /* Black text on white bg */
+    }
+
+    .nav-links.active {
+        display: flex !important;
+    }
+
+    .nav-links-mobile-login {
+        display: block !important;
+        /* Visible in hamburger */
+        margin-top: 10px;
+        padding-top: 10px;
+        border-top: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    .nav-links-mobile-login a {
+        color: #000000 !important;
+    }
+
+    /* ---- DARK THEME mobile dropdown ---- */
+    .navbar.nav-dark .nav-links {
+        background: rgba(20, 20, 22, 0.95) !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    }
+
+    .navbar.nav-dark .nav-links a {
+        color: #dfdfdf !important;
+        /* Light text on dark bg */
+    }
+
+    .navbar.nav-dark .nav-links-mobile-login {
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .navbar.nav-dark .nav-links-mobile-login a {
+        color: #ffffff !important;
+    }
+
+    .hamburger-icon {
+        display: block !important;
+        color: #000 !important;
+        font-size: 24px;
+        cursor: pointer;
+        margin-right: -10px;
+        /* push towards right */
+    }
+
+    .navbar.nav-dark .hamburger-icon {
+        color: #fff !important;
+    }
+
+    /* Point 1: Hero Mocks Rethink */
+    .mockup-wrapper {
+        position: relative;
+        width: 100vw;
+        height: 350px;
+        /* Increased height to stop vertical cutting */
+        display: block;
+        overflow: visible;
+        /* Allow content to be seen */
+        margin-top: 60px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .mockup-frame {
+        position: absolute;
+        width: 670px;
+        max-width: none;
+        height: 470px;
+        transform: scale(0.40);
+        /* Slightly smaller for small phones */
+        transform-origin: top right;
+        top: -20px;
+        right: -15vw;
+    }
+
+    .hero-mock-frame {
+        position: absolute;
+        width: 295px;
+        height: 610px;
+        transform: scale(0.32);
+        transform-origin: left top;
+        top: 0px;
+        left: 5vw;
+        margin: 0;
+    }
+
+    /* Point 2: Hero Gaps */
+    .waitlist-cta {
+        position: relative !important;
+        margin-top: 400px !important;
+        /* Increased to ensure no overlap on small phones */
+        margin-bottom: 80px !important;
+        bottom: auto !important;
+        left: auto !important;
+        transform: none !important;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100% !important;
+        z-index: 100;
+    }
+
+    .integrations-divider {
+        margin-top: 0px;
+    }
+
+    /* Point 4: TCS2 row reversed text-first */
+    .tcs2-row-reversed {
+        flex-direction: column-reverse;
+        /* Text on top, mock on bottom */
+    }
+
+    .tcs1-mock-iframe {
+        width: 450px;
+        height: 360px;
+        transform: scale(0.85);
+        transform-origin: center center;
+        max-width: none;
+        margin: -10px;
+    }
+
+    .tcs1-mock-box {
+        height: 320px;
+        display: flex;
+        width: 410px;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+    }
+
+    /* All 6 Features mocks restricted to 450x450 scaled containers */
+    .mobile-features-mock-container {
+        width: 450px;
+        max-width: 100%;
+        height: 450px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto;
+        overflow: hidden;
+    }
+
+    /* Set unclipped size for all features mocks, then scale down */
+    .mobile-features-mock-container iframe {
+        width: 480px;
+        max-width: none;
+        height: 530px;
+        transform: scale(0.75);
+        transform-origin: center center;
+        margin-top: 0;
+    }
+
+    /* Tools mock (mock 3) requires 520px width to avoid logo clipping, then scaled down */
+    .mobile-features-mock-container .iframe-mock-3 {
+        width: 520px;
+        max-width: none;
+        height: 500px;
+        transform: scale(0.75);
+        transform-origin: center center;
+        margin-top: 0;
+        margin-left: -80px;
+    }
+
+    /* Point 4: GAP Features to FAQs = 40px */
+    .features-section {
+        padding-bottom: 40px;
+        margin-bottom: 0px;
+    }
+
+    .faqs-section {
+        padding-top: 40px;
+    }
+
+    /* Point 5: Footer Alignment Left */
+    .footer-top,
+    .footer-links-wrapper,
+    .footer-brand-col,
+    .footer-link-col,
+    .footer-social-box {
+        align-items: flex-start;
+        text-align: left;
+    }
+
+    /* except footer bottom */
+    .footer-bottom {
+        align-items: center;
+        text-align: center;
+    }
+}

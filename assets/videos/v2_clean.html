@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<title>V2 — Universal Search</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: #ffffff;
+    width: 450px;
+    height: 360px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .scene {
+    width: 420px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  /* ── SEARCH BAR ── */
+  .search-wrap {
+    opacity: 0;
+    animation: fadeUp 0.4s 0.15s ease forwards;
+  }
+
+  .search-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border: 1.5px solid #2563eb;
+    border-radius: 12px;
+    padding: 11px 16px;
+    background: #fff;
+    box-shadow: 0 0 0 4px rgba(37,99,235,0.08), 0 2px 8px rgba(37,99,235,0.12);
+  }
+
+  .search-icon svg { stroke: #94a3b8; display: block; }
+
+  .search-text {
+    flex: 1;
+    font-size: 13.5px;
+    font-weight: 500;
+    color: #0f172a;
+    letter-spacing: -0.01em;
+  }
+
+  .cursor {
+    display: inline-block;
+    width: 2px; height: 14px;
+    background: #2563eb;
+    border-radius: 1px;
+    vertical-align: middle;
+    margin-left: 1px;
+    opacity: 0;
+    animation: blink 0.75s 0.7s infinite;
+    animation-fill-mode: forwards;
+  }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+  .tool-count {
+    font-size: 10.5px;
+    font-weight: 600;
+    color: #94a3b8;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    padding: 3px 8px;
+    white-space: nowrap;
+  }
+
+  /* ── RESULTS ── */
+  .results-card {
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    background: #fff;
+  }
+
+  .row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 14px;
+    border-bottom: 1px solid #f1f5f9;
+    opacity: 0;
+    background: #fff;
+  }
+  .row:last-child { border-bottom: none; }
+  .row.active {
+    background: #f8faff;
+    border-left: 2.5px solid #2563eb;
+    padding-left: 11.5px;
+  }
+
+  .r1 { animation: slideIn 0.3s 0.85s ease forwards; }
+  .r2 { animation: slideIn 0.3s 1.05s ease forwards; }
+  .r3 { animation: slideIn 0.3s 1.25s ease forwards; }
+  .r4 { animation: slideIn 0.3s 1.45s ease forwards; }
+  .r5 { animation: slideIn 0.3s 1.65s ease forwards; }
+
+  @keyframes slideIn {
+    from { opacity:0; transform:translateX(-8px); }
+    to { opacity:1; transform:translateX(0); }
+  }
+
+  /* logo */
+  .r-logo {
+    width: 24px; height: 24px;
+    border-radius: 6px;
+    flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+    background: #fff;
+    border: 0.5px solid rgba(0,0,0,0.1);
+  }
+  .r-logo img { width: 24px; height: 24px; object-fit: contain; mix-blend-mode: multiply; }
+  .r-logo svg { display: block; }
+
+  .r-body { flex: 1; min-width: 0; }
+
+  .r-title {
+    font-size: 11.5px;
+    font-weight: 500;
+    color: #1e293b;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 2px;
+  }
+
+  .r-title mark {
+    background: #dbeafe;
+    color: #2563eb;
+    border-radius: 2px;
+    padding: 0 2px;
+    font-style: normal;
+  }
+
+  .r-meta {
+    font-size: 10px;
+    color: #94a3b8;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .rtag {
+    font-size: 9.5px;
+    font-weight: 600;
+    padding: 1px 6px;
+    border-radius: 4px;
+  }
+  .rt-red   { background: #fef2f2; color: #dc2626; }
+  .rt-blue  { background: #eff6ff; color: #2563eb; }
+  .rt-gray  { background: #f1f5f9; color: #64748b; }
+  .rt-green { background: #f0fdfa; color: #0d9488; }
+
+  /* footer */
+  .results-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 7px 14px;
+    background: #f8fafc;
+    border-top: 1px solid #f1f5f9;
+    opacity: 0;
+    animation: fadeUp 0.3s 2.0s ease forwards;
+  }
+
+  .footer-stat { font-size: 10px; color: #94a3b8; }
+  .footer-stat strong { color: #475569; font-weight: 600; }
+  .footer-speed {
+    font-size: 10.5px;
+    font-weight: 700;
+    color: #0d9488;
+    display: flex; align-items: center; gap: 4px;
+  }
+
+  @keyframes fadeUp {
+    from { opacity:0; transform:translateY(5px); }
+    to { opacity:1; transform:translateY(0); }
+  }
+
+  .logo-box {
+    background: #ffffff;
+    border: 0.75px solid rgba(0,0,0,0.1);
+    border-radius: 5px;
+    width: 22px; height: 22px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    overflow: hidden;
+  }
+  .logo-box img { width: 18px; height: 18px; object-fit: contain; mix-blend-mode: multiply; display: block; }
+</style>
+</head>
+<body>
+<div class="scene">
+
+  <div class="search-wrap">
+    <div class="search-bar">
+      <div class="search-icon">
+        <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
+          <circle cx="6.5" cy="6.5" r="4.5" stroke="#94a3b8" stroke-width="1.5"/>
+          <path d="M10 10L13 13" stroke="#94a3b8" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="search-text"><span id="typed"></span><span class="cursor"></span></div>
+      <div class="tool-count">6 tools</div>
+    </div>
+  </div>
+
+  <div class="results-card">
+
+    <div class="row active r1">
+      <div class="r-logo" style="background:#fff;border:0.75px solid rgba(0,0,0,0.1);border-radius:6px;width:26px;height:26px;display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0;"><img src="../pictures/logos/mixpane_trans.png" style="width:22px;height:22px;object-fit:contain;mix-blend-mode:multiply;display:block;"/></div>
+      <div class="r-body">
+        <div class="r-title">Funnel: <mark>onboarding</mark> drop-off Step 3 — last 30 days</div>
+        <div class="r-meta">Mixpanel · Funnel <span class="rtag rt-red">62% drop-off</span></div>
+      </div>
+    </div>
+
+    <div class="row r2">
+      <div class="r-logo" style="background:#fff;border:0.75px solid rgba(0,0,0,0.1);border-radius:6px;width:26px;height:26px;display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0;"><img src="../pictures/logos/intercom.png" style="width:22px;height:22px;object-fit:contain;mix-blend-mode:multiply;display:block;"/></div>
+      <div class="r-body">
+        <div class="r-title">34 tickets — "<mark>onboarding</mark>" API key confusion</div>
+        <div class="r-meta">Intercom · Support <span class="rtag rt-red">High volume</span></div>
+      </div>
+    </div>
+
+    <div class="row r3">
+      <div class="r-logo" style="background:#fff;border:0.75px solid rgba(0,0,0,0.1);border-radius:6px;width:26px;height:26px;display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0;"><img src="../pictures/logos/jira_trans.png" style="width:22px;height:22px;object-fit:contain;mix-blend-mode:multiply;display:block;"/></div>
+      <div class="r-body">
+        <div class="r-title">Epic DB-204 · <mark>Onboarding</mark> redesign — OAuth flow</div>
+        <div class="r-meta">Jira · Epic <span class="rtag rt-gray">Backlog</span></div>
+      </div>
+    </div>
+
+    <div class="row r4">
+      <div class="r-logo" style="background:#fff;border:0.75px solid rgba(0,0,0,0.1);border-radius:6px;width:26px;height:26px;display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0;"><img src="../pictures/logos/salesforce.png" style="width:22px;height:22px;object-fit:contain;mix-blend-mode:multiply;display:block;"/></div>
+      <div class="r-body">
+        <div class="r-title"><mark>Onboarding</mark> friction — 3 user interview transcripts</div>
+        <div class="r-meta">Amplitude · Cohort <span class="rtag rt-blue">Qualitative</span></div>
+      </div>
+    </div>
+
+    <div class="row r5">
+      <div class="r-logo" style="background:#fff;border:0.75px solid rgba(0,0,0,0.1);border-radius:6px;width:26px;height:26px;display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0;"><img src="../pictures/logos/zendesk.png" style="width:22px;height:22px;object-fit:contain;mix-blend-mode:multiply;display:block;"/></div>
+      <div class="r-body">
+        <div class="r-title">5 deals blocked: "<mark>onboarding</mark> complexity" — $284k</div>
+        <div class="r-meta">Salesforce · Pipeline <span class="rtag rt-blue">Revenue at risk</span></div>
+      </div>
+    </div>
+
+    <div class="results-footer">
+      <div class="footer-stat">Searched <strong>6 tools</strong> · <strong>47 results</strong></div>
+      <div class="footer-speed">⚡ Found in 0.3s</div>
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+  const text = "onboarding drop-off";
+  const el = document.getElementById('typed');
+  let i = 0;
+  setTimeout(() => {
+    const t = setInterval(() => {
+      if (i < text.length) { el.textContent += text[i]; i++; }
+      else clearInterval(t);
+    }, 65);
+  }, 650);
+  setTimeout(() => location.reload(), 5500);
+</script>
+</body>
+</html>
